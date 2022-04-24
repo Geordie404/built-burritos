@@ -11,7 +11,7 @@ import Config
 # before starting your production server.
 config :chat, ChatWeb.Endpoint,
   cache_static_manifest: "priv/static/cache_manifest.json",
-  url: [scheme: "https", host: "geordie-elixir-chat.herokuapp.com", port: 443],
+  url: [scheme: "https", host: "infinite-caverns-36462.herokuapp.com", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
 
 
