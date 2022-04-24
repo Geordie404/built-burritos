@@ -65,6 +65,7 @@ channel.on('shout', function (payload) { // listen to the 'shout' event
   let name = payload.name || 'guest';    // get name from payload or set default
   li.innerHTML = '<span id="time">' + '[ ' + time + ' ] ' + '</span>' + '<b>' + name + '</b>: ' + payload.message + '\n'; // set li contents
   ul.appendChild(li);                    // append to list
+  ul.lastChild.scrollIntoView()
 });
 
 channel.join()
@@ -87,5 +88,7 @@ msg.addEventListener('keypress', function (event) {
     msg.value = '';         // reset the message input field for next message.
   }
 });
+
+
 
 export default socket

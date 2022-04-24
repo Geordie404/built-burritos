@@ -27,7 +27,7 @@ defmodule ChatWeb.RoomChannel do
   # getting messages from the database to display
   def handle_info(:after_join, socket) do
   Chat.Message.get_messages()
-  |> Enum.reverse() # revers to display the latest message at the bottom of the page
+  # |> Enum.reverse() # revers to display the latest message at the bottom of the page
   |> Enum.each(fn msg -> push(socket, "shout", %{
       time: msg.time,
       name: msg.name,

@@ -118,3 +118,21 @@
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+
+ul{
+  border:1px solid #000;
+  list-style:none;
+  max-height:350px;
+  margin:0;
+  overflow:auto;
+  padding:0;
+  text-indent:10px;
+
+}
+li{
+  line-height:25px;
+}
+li:nth-child(even){
+  background:#ccc;
+}
