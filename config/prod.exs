@@ -10,11 +10,12 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :chat, ChatWeb.Endpoint,
-  # http: [port: {:system, "PORT"}],
-  # url: [scheme: "https", host: "infinite-caverns-36462.herokuapp.com" , port: 443],
-  # force_ssl: [rewrite_on: [:x_forwarded_proto]],
-  # cache_static_manifest: "priv/static/cache_manifest.json",
-  # secret_key_base: System.get_env("SECRET_KEY_BASE")
+  check_origin: ["https://infinite-caverns-36462.herokuapp.com", "https://myapp.me", "//*.myapp.me"],
+  http: [port: {:system, "PORT"}],
+  url: [scheme: "https", host: "infinite-caverns-36462.herokuapp.com" , port: 443],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
 
   #
   # # Configure your database
