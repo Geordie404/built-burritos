@@ -13,7 +13,29 @@ config :chat, ChatWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [scheme: "https", host: "infinite-caverns-36462.herokuapp.com" , port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
+
+config :chat, Chat.Endpoint,
+  http: [port: {:system, "PORT"}],
+  url: [scheme: "https", host: "infinite-caverns-36462.herokuapp.com" , port: 443],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
+
+# Configure your database
+config :chat, ChatWeb.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  url: System.get_env("DATABASE_URL"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  ssl: true
+
+  # Configure your database
+  config :chat, Chat.Repo,
+    adapter: Ecto.Adapters.Postgres,
+    url: System.get_env("DATABASE_URL"),
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+    ssl: true
 
 
 # Do not print debug messages in production

@@ -19,6 +19,10 @@ defmodule ChatWeb.UserSocket do
   # See the [`Channels guide`](https://hexdocs.pm/phoenix/channels.html)
   # for further details.
 
+  ## Transports
+  transport :websocket, Phoenix.Transports.WebSocket,
+    timeout: 45_000
+
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After
@@ -48,4 +52,6 @@ defmodule ChatWeb.UserSocket do
   # Returning `nil` makes this socket anonymous.
   @impl true
   def id(_socket), do: nil
+
+
 end
