@@ -20,7 +20,7 @@ config :chat, ChatWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
-  check_origin: [..., "//*.myapp.me"],
+  check_origin: false,
   code_reloader: true,
   debug_errors: true,
   secret_key_base: "fD5K7qMfu/hnPq04KGEHPSa5vstl0pw0TuLJ6Ou3QOHmh5P8+2JMaGk/nUWswMGT",
