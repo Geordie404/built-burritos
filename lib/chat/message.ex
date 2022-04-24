@@ -18,10 +18,10 @@ defmodule Chat.Message do
     |> validate_required([:time, :name, :message])
   end
 
-  def get_messages(limit \\ 20) do
-  Chat.Message
-  |> limit(^limit)
-  |> order_by(desc: :inserted_at)
-  |> Chat.Repo.all()
-end
+# def get_messages(limit \\ 20) do
+#   Chat.Message
+#   |> limit(^limit)
+#   |> order_by(desc: :inserted_at)
+#   |> Chat.Repo.all()
+# end
 end
