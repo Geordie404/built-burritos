@@ -10,7 +10,7 @@ defmodule ChatWeb.Endpoint do
     signing_salt: "3vRo9Hv4"
   ]
 
-  socket "/socket", ChatWeb.UserSocket, websocket: true, longpoll: false
+  socket "/socket", ChatWeb.UserSocket, websocket: [timeout: 45_000], longpoll: false
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
 
