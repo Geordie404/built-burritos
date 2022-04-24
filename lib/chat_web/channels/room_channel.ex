@@ -23,7 +23,6 @@ defmodule ChatWeb.RoomChannel do
     {:noreply, socket}
   end
 
-
   # getting messages from the database to display
 
 #   def handle_info(:after_join, socket) do
