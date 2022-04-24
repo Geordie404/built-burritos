@@ -60,10 +60,10 @@ let channel = socket.channel("room:lobby", {})
 
 channel.on('shout', function (payload) { // listen to the 'shout' event
   let li = document.createElement("li"); // create new list item DOM element
-  let name = payload.name || 'guest';    // get name from payload or set default
   let today = new Date();
   let time = today.getHours() + ":" + today.getMinutes();
-  li.innerHTML = '[ ' + time + ' ] ' + '<b>' + name + '</b>: ' + payload.message + '\n'; // set li contents
+  let name = payload.name || 'guest';    // get name from payload or set default
+  li.innerHTML = '<span id="time">' + '[ ' + time + ' ] ' + '</span>' + '<b>' + name + '</b>: ' + payload.message + '\n'; // set li contents
   ul.appendChild(li);                    // append to list
 });
 
@@ -72,12 +72,15 @@ channel.join()
   .receive("error", resp => { console.log("Unable to join", resp) })
 
 let ul = document.getElementById('msg-list');        // list of messages.
+let today = new Date();
+let time = today.getHours() + ":" + today.getMinutes(); // time message sent
 let name = document.getElementById('name');          // name of message sender
 let msg = document.getElementById('msg');            // message input field
 
 msg.addEventListener('keypress', function (event) {
   if (event.keyCode == 13 && msg.value.length > 0) { // don't sent empty msg.
     channel.push('shout', { // send the message to the server on "shout" channel
+      time: time,
       name: name.value || "guest",     // get value of "name" of person sending the message. Set guest as default
       message: msg.value    // get message text (value) from msg input field.
     });
