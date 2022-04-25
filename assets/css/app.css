@@ -121,6 +121,7 @@
 
 
 ul{
+  background-color: #c5c6d0;
   border:1px solid #000;
   list-style:none;
   min-height: 350px;
@@ -135,5 +136,5 @@ li{
   line-height:25px;
 }
 li:nth-child(even){
-  background:#ccc;
+  background:#A7A2CA;
 }
