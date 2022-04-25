@@ -24,5 +24,4 @@ defmodule Chat.Message do
     |> order_by(desc: :inserted_at)
     |> Chat.Repo.all()
   end
-
 end

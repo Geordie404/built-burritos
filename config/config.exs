@@ -12,7 +12,7 @@ config :chat,
 
 # Configures the endpoint
 config :chat, ChatWeb.Endpoint,
-  url: [scheme: "https", host: "infinite-caverns-36462.herokuapp.com" , port: 443],
+  url: [host: "localhost"],
   render_errors: [view: ChatWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: Chat.PubSub,
   live_view: [signing_salt: "DhfGynXt"]
