@@ -16,12 +16,22 @@ defmodule ChatWeb.RoomChannel do
 
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (room:lobby).
-  @impl true
+  # @impl true
   def handle_in("shout", payload, socket) do
     Chat.Message.changeset(%Chat.Message{}, payload) |> Chat.Repo.insert  # insert into repo
     broadcast(socket, "shout", payload)
     {:noreply, socket}
   end
+
+  @impl true
+  def handle_in("shout-burrito", payload, socket) do
+    Chat.Burrito.changeset(%Chat.Burrito{}, payload) |> Chat.Repo.insert  # insert into repo
+    broadcast(socket, "shout", payload)
+    {:noreply, socket}
+  end
+
+  # It is also common to receive messages from the client and
+  # broadcast to everyone in the current topic (room:lobby).
 
   # getting messages from the database to display
 
@@ -35,5 +45,6 @@ def handle_info(:after_join, socket) do
     }) end)
   {:noreply, socket} # :noreply
 end
+
 
 end

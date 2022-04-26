@@ -95,7 +95,8 @@ msg.addEventListener('keypress', function (event) {
 
 let build = document.getElementById('finalize-button'); //finalize burrito button
 build.addEventListener('click', function (event) {
-    channel.push('shout', { // send the message to the server on "shout" channel
+    channel.push('shout-burrito', { // send the message to the server on "shout" channel
+      burrito: true,
       time: time,
       name: name.value || "guest",     // get value of "name" of person sending the message. Set guest as default
       message: "burrito"   // get message text (value) from msg input field.
