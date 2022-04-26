@@ -3,8 +3,7 @@ defmodule Chat.Repo.Migrations.CreateBurritos do
 
   def change do
     create table(:burritos) do
-      add :burritos, :string
-      add :burrito, :boolean, default: false, null: false
+      add :burrito, :boolean
       add :name, :string
       add :message, :string
       add :time, :string
