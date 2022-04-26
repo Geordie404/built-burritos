@@ -104,6 +104,15 @@ build.addEventListener('click', function (event) {
   console.log("built burrito");
 
   let burrito_base = document.getElementById('base-options')
+  let burrito_protein = document.getElementById('protein-options')
+  let burrito_protein_extra = document.getElementById('protein-seconds')
+  let burrito_rice = document.getElementById('rice-options')
+  let burrito_beans = document.getElementById('beans-options')
+  let protien_price = document.getElementById('cost-1')
+  let protien_price_extra = document.getElementById('cost-2')
+  // let protein_cost = parseInt(burrito_protein.price) + parseInt(burrito_protein_2.price)
+
+  console.log(burrito_base.value);
 
 
     channel.push('shout-burrito', { // send the message to the server on "shout" channel
@@ -112,7 +121,12 @@ build.addEventListener('click', function (event) {
       name: name.value || "guest",     // get value of "name" of person sending the message. Set guest as default
       message:msg.value ||"burrito",  // get message text (value) from msg input field.
       // code for ingredient fields
-      base: burrito_base.value
+      base: burrito_base.value,
+      protein: burrito_protein.value,
+      extra: burrito_protein_extra.value,
+      rice: burrito_rice.value,
+      beans: burrito_beans.value
+
     });
     msg.value = '';         // reset the message input field for next message.
 });

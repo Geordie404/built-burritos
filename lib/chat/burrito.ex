@@ -10,6 +10,10 @@ defmodule Chat.Burrito do
     field :time, :string
     # ingredient fields
     field :base, :string
+    field :protein, :string
+    field :extra, :string
+    field :rice, :string
+    field :beans, :string
 
     timestamps()
   end
@@ -17,8 +21,8 @@ defmodule Chat.Burrito do
   @doc false
   def changeset(burrito, attrs) do
     burrito
-    |> cast(attrs, [:burrito, :name, :message, :time, :base])
-    |> validate_required([:burrito, :name, :message, :time, :base])
+    |> cast(attrs, [:burrito, :name, :message, :time, :base, :protein, :extra, :rice, :beans])
+    |> validate_required([:burrito, :name, :message, :time, :base, :protein, :extra, :rice, :beans])
   end
 
   def get_messages(limit \\ 20) do
