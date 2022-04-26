@@ -93,13 +93,26 @@ msg.addEventListener('keypress', function (event) {
 
 // code for burrito maker
 
+
+
+
+
+// Finalize burrito button
+
 let build = document.getElementById('finalize-button'); //finalize burrito button
 build.addEventListener('click', function (event) {
+  console.log("built burrito");
+
+  let burrito_base = document.getElementById('base-options')
+
+
     channel.push('shout-burrito', { // send the message to the server on "shout" channel
       burrito: true,
       time: time,
       name: name.value || "guest",     // get value of "name" of person sending the message. Set guest as default
-      message: "burrito"   // get message text (value) from msg input field.
+      message:msg.value ||"burrito",  // get message text (value) from msg input field.
+      // code for ingredient fields
+      base: burrito_base.value
     });
     msg.value = '';         // reset the message input field for next message.
 });

@@ -45,58 +45,69 @@
 <div class="burrito-box">
 
   <div class="base">
-    <b> Burrito-Base:   </b>
-    <input id="flour-base" type="button" value="Flour Tortilla">
-    <input id="wheat-base" type="button" value="Wheat Tortilla">
-    <input id="bowl-base" type="button" value="Burrito Bowl">
-    <input id="bowl-base" type="button" value="Bowl w/ Greens">
+    <label for="base-options">Choose a burrito base:</label>
+    <select name="base-options" id="base-options">
+      <option id="base-flour" value="flour">Flour</option>
+      <option id="base-wheat" value="wheat">Wheat</option>
+      <option id="base-bowl" value="bowl">Bowl</option>
+      <option id="base-greens" value="salad">Greens</option>
+    </select>
   </div>
 
   <div class="protein">
-    <b> Protein:   </b>
-    <input id="beef-protein" type="button" value="Ground Beef">
-    <input id="chicken-protein" type="button" value="Spicy Chicken">
-    <input id="carne-protein" type="button" value="Carne Asada">
-    <input id="plant-protein" type="button" value="Plant-Based">
+
+    <label for="protein-options">First protein:</label>
+    <select name="protein-options" id="protien-options">
+      <option id="protein-beef" value="beef" price="9">Ground Beef</option>
+      <option id="protein-chicken" value="chicken" price="10">Spicy Chicken</option>
+      <option id="protein-steak" value="steak" price="12">Carne Asada</option>
+      <option id="protein-plant" value="plant" price="9.5">Plant-Based</option>
+    </select>
+
+    <label for="protein-seconds">Second protein:</label>
+    <select name="protein-seconds" id="protien-seconds">
+      <option id="protein-beef" value="none" price="0">None Extra</option>
+      <option id="protein-beef" value="beef" price="2">Ground Beef</option>
+      <option id="protein-chicken" value="chicken" price="2.5">Spicy Chicken</option>
+      <option id="protein-steak" value="steak" price="4">Carne Asada</option>
+      <option id="protein-plant" value="plant" price="2">Plant-Based</option>
+    </select>
+
   </div>
 
   <div class="rice">
-    <b> Rice:   </b>
-    <input id="white-rice" type="button" value="White Rice">
-    <input id="brown-rice" type="button" value="Brown Rice">
-    <input id="spanish-rice" type="button" value="Spanish Rice">
-    <input id="no-rice" type="button" value="No Rice">
+    <label for="rice-options">Rice:</label>
+    <select name="rice-options" id="protien-options">
+      <option id="rice-white" value="white">White Rice</option>
+      <option id="rice-brown" value="brown">Brown Rice</option>
+      <option id="rice-spanish" value="spanish">Spanish Rice</option>
+      <option id="rice-none" value="none">No Rice</option>
+    </select>
   </div>
 
   <div class="beans">
-    <b> Beans:   </b>
-    <input id="black-beans" type="button" value="Black Beans">
-    <input id="pinto-beans" type="button" value="Pinto Beans">
-    <input id="refried-beans" type="button" value="Refried Beans">
-    <input id="no-beans" type="button" value="No Beans">
+    <label for="beans-options">Beans</label>
+    <select name="beans-options" id="beans-options">
+      <option id="beans-black" value="white">White beans</option>
+      <option id="beans-pinto" value="brown">Brown beans</option>
+      <option id="beans-refried" value="spanish">Spanish beans</option>
+      <option id="beans-none" value="none">No beans</option>
+    </select>
   </div>
 
-
-  <div class="toppings">
-    <b> Add-Ons:   </b>
-    <input id="cheese-toppings" type="button" value="Queso">
-    <input id="guac-toppings" type="button" value="Guacamole">
-    <input id="onion-toppings" type="button" value="Diced Onion">
-    <input id="cliantro-toppings" type="button" value="Cilantro">
-    <input id="cream-toppings" type="button" value="Sour Cream">
-    <input id="vegie-toppings" type="button" value="Fajita Vegetables">
-    <input id="red-salsa-toppings" type="button" value="Salsa Roja">
-    <input id="green-salsa-toppings" type="button" value="Salsa Verde">
-  </div>
 
   <div class="finalize">
     <b> Finalize:   </b>
     <input id="finalize-button" type="button" value="Build">
+    <b id="burrito contents"> 0 </b>
   </div>
 
 </div>
 
 <!-- The list of messages will appear here: -->
+
+
+
 <div class="chat-box">
   <ul id="msg-list" style="list-style: none;">
   </ul>
