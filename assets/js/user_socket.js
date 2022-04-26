@@ -58,6 +58,8 @@ socket.connect()
 // subtopic is its id - in this case 42:
 let channel = socket.channel("room:lobby", {})
 
+// code for chat room window
+
 channel.on('shout', function (payload) { // listen to the 'shout' event
   let li = document.createElement("li"); // create new list item DOM element
   let today = new Date();
@@ -87,6 +89,18 @@ msg.addEventListener('keypress', function (event) {
     });
     msg.value = '';         // reset the message input field for next message.
   }
+});
+
+// code for burrito maker
+
+let build = document.getElementById('finalize-button'); //finalize burrito button
+build.addEventListener('click', function (event) {
+    channel.push('shout', { // send the message to the server on "shout" channel
+      time: time,
+      name: name.value || "guest",     // get value of "name" of person sending the message. Set guest as default
+      message: "burrito"   // get message text (value) from msg input field.
+    });
+    msg.value = '';         // reset the message input field for next message.
 });
 
 
