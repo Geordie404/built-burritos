@@ -66,7 +66,11 @@ def handle_info(:past_burritos, socket) do
       extra: burrito.extra,
       rice: burrito.rice,
       beans: burrito.beans,
-      toppings: burrito.toppings
+      toppings: burrito.toppings,
+      calories: burrito.calories,
+      protein_grams: burrito.protein_grams,
+      price: burrito.price
+
     }) end)
   {:noreply, socket} # :noreply
 end

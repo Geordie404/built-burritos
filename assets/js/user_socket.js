@@ -169,7 +169,9 @@ build.addEventListener('click', function (event) {
       habanero: topping_habanero.checked,
       pico: topping_pico.checked,
       // list of all toppings
-      toppings: toppings_list
+      toppings: toppings_list,
+      calories: 0,
+      purchased: false
     });
     msg.value = '';         // reset the message input field for next message.
 
@@ -194,6 +196,10 @@ channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
   let burrito_ingredients = document.createElement("li");
   let burrito_toppings = document.createElement("li");
   let additional_instructions = document.createElement("li");
+  let nutrition_price = document.createElement("li");
+
+  let extra = payload.extra;
+  if (extra == "false") {extra = "no extra"} else {extra = extra.slice(2)};
   // let today = new Date();
   // let time = today.getHours() + ":" + today.getMinutes();
   // let name = payload.name || 'guest';    // get name from payload or set default
@@ -201,14 +207,16 @@ channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
   order_details.innerHTML = '<b>' + payload.name + "'s burrito" + '</b>'
   + " ordered on " + payload.date + " at " + payload.time
   burrito_ingredients.innerHTML =
-  "burrito " + "base: " + payload.base + ", proteins: " + payload.protein + ", extra protein: " + payload.extra
+  "burrito " + "base: " + payload.base + ", proteins: " + payload.protein + ", extra protein: " + extra
   + ", rice: " + payload.rice + ", beans: " + payload.beans
   burrito_toppings.innerHTML = "toppings : " + payload.toppings
   additional_instructions.innerHTML = "additional notes: " + payload.message
+  // nutrition_price.innerHTML = "burrito macros: " + payload.calories + "kcal, " + payload.protein_grams + "g protein" + " burrito price: $" + payload.price
 
   ul.appendChild(order_details);
   ul.appendChild(burrito_ingredients);
   ul.appendChild(burrito_toppings);
+  // ul.appendChild(nutrition_price);
   ul.appendChild(additional_instructions);
 
 });
@@ -217,14 +225,18 @@ channel.on('shout-past-burritos', function (payload) { // listen to the 'shout' 
   let ul = document.getElementById('msg-list');
   let order_details = document.createElement("li"); // create new list item DOM element
   let burrito_details = document.createElement("li");
+  let extra = payload.extra;
+  if (extra == "false") {extra = "no extra"} else {extra = extra.slice(2)};
+
 
   // let today = new Date();
   // let time = today.getHours() + ":" + today.getMinutes();
   // let name = payload.name || 'guest';    // get name from payload or set default
   order_details.innerHTML = '<b>' + payload.name + "'s burrito" + '</b>' + " ordered on " + payload.date + " at " + payload.time
 
-  burrito_details.innerHTML = "burrito base: " + payload.base + ", " + payload.protein + ", " + payload.extra + ", " + payload.rice + ", " + payload.beans
-  + " | burrito toppings: " + payload.toppings
+  burrito_details.innerHTML = "burrito base: " + payload.base + ", " + payload.protein + ", " + extra + ", " + payload.rice + ", " + payload.beans
+  + " | toppings: " + payload.toppings + " | macros: " + payload.calories
+  + "kcal, " + payload.protein_grams + "g protein" + " | price: $" + payload.price
 
   ul.appendChild(order_details);
   ul.appendChild(burrito_details);
