@@ -50,7 +50,7 @@ defmodule Chat.Burrito do
 
   end
 
-  def get_burritos(limit \\ 20) do
+  def get_burritos(limit \\ 50) do
     Chat.Burrito
     |> limit(^limit)
     |> order_by(desc: :inserted_at)
@@ -62,66 +62,66 @@ defmodule Chat.Burrito do
     caloric_ingredients = ["base", "protein", "extra", "rice", "beans"]
     caloric_toppings = ["cheese", "cilantro", "onion", "jalapeno", "fajita", "salsa", "habanero", "pico"]
     calorie_map = %{
-        "flour" => 150,
-        "wheat" => 100,
-        "salad" => 30,
-        "beef" => 200,
-        "chicken" => 150,
-        "steak" => 250,
-        "plant" => 90,
-        "x-beef" => 200,
-        "x-chicken" => 150,
-        "x-steak" => 250,
-        "x-plant" => 90,
-        "white" => 200,
-        "brown" => 180,
-        "spanish" => 220,
-        "black" => 100,
-        "pinto" => 120,
-        "refried" => 200,
-        "cheese" => 150,
-        "onion" => 5,
-        "jalapeno" => 5,
-        "fajita" => 80,
-        "salsa" => 20,
-        "habanero" => 10,
-        "pico" => 40,
+      "flour" => 150,
+      "wheat" => 100,
+      "salad" => 30,
+      "beef" => 200,
+      "chicken" => 150,
+      "steak" => 250,
+      "plant" => 90,
+      "x-beef" => 200,
+      "x-chicken" => 150,
+      "x-steak" => 250,
+      "x-plant" => 90,
+      "white" => 200,
+      "brown" => 180,
+      "spanish" => 220,
+      "black" => 100,
+      "pinto" => 120,
+      "refried" => 200,
+      "cheese" => 150,
+      "onion" => 5,
+      "jalapeno" => 5,
+      "fajita" => 80,
+      "salsa" => 20,
+      "habanero" => 10,
+      "pico" => 40,
       }
 
       protein_map = %{
-          "flour" => 5,
-          "wheat" => 10,
-          "beef" => 45,
-          "chicken" => 50,
-          "steak" => 60,
-          "plant" => 40,
-          "x-beef" => 45,
-          "x-chicken" => 50,
-          "x-steak" => 60,
-          "x-plant" => 40,
-          "white" => 4,
-          "brown" => 8,
-          "spanish" => 4,
-          "black" => 5,
-          "pinto" => 6,
-          "refried" => 4,
-          "cheese" => 10,
+        "flour" => 5,
+        "wheat" => 10,
+        "beef" => 45,
+        "chicken" => 50,
+        "steak" => 60,
+        "plant" => 40,
+        "x-beef" => 45,
+        "x-chicken" => 50,
+        "x-steak" => 60,
+        "x-plant" => 40,
+        "white" => 4,
+        "brown" => 8,
+        "spanish" => 4,
+        "black" => 5,
+        "pinto" => 6,
+        "refried" => 4,
+        "cheese" => 10,
         }
 
-        price_map = %{
-          "flour" => 6.00,
-          "wheat" => 6.00,
-          "bowl" => 6.00,
-          "salad" => 6.50,
-          "beef" => 3.00,
-          "chicken" => 3.50,
-          "steak" => 4.50,
-          "plant" => 3.50,
-          "x-beef" => 3.00,
-          "x-chicken" => 3.50,
-          "x-steak" => 4.50,
-          "x-plant" => 3.50,
-          }
+      price_map = %{
+        "flour" => 6.00,
+        "wheat" => 6.00,
+        "bowl" => 6.00,
+        "salad" => 6.50,
+        "beef" => 3.00,
+        "chicken" => 3.50,
+        "steak" => 4.50,
+        "plant" => 3.50,
+        "x-beef" => 3.00,
+        "x-chicken" => 3.50,
+        "x-steak" => 4.50,
+        "x-plant" => 3.50,
+        }
 
 
 
@@ -155,13 +155,7 @@ defmodule Chat.Burrito do
     |> Map.values
     |> Enum.sum
 
-      IO.inspect(total_price)
-
-    # IO.inspect("price: $#{total_price} macros: #{total_calories}kcal and #{total_protein}g protein")
-
     cast(changeset, %{calories: total_calories, protein_grams: total_protein, price: total_price}, [:calories, :protein_grams, :price])
-    # cast(changeset, %{protein_grams: total_protein}, [:protein_grams])
-
   end
 
 end

@@ -211,12 +211,12 @@ channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
   + ", rice: " + payload.rice + ", beans: " + payload.beans
   burrito_toppings.innerHTML = "toppings : " + payload.toppings
   additional_instructions.innerHTML = "additional notes: " + payload.message
-  // nutrition_price.innerHTML = "burrito macros: " + payload.calories + "kcal, " + payload.protein_grams + "g protein" + " burrito price: $" + payload.price
+  nutrition_price.innerHTML = "burrito macros: " + payload.calories + "kcal, " + payload.protein_grams + "g protein" + " burrito price: $" + payload.price
 
   ul.appendChild(order_details);
   ul.appendChild(burrito_ingredients);
   ul.appendChild(burrito_toppings);
-  // ul.appendChild(nutrition_price);
+  ul.appendChild(nutrition_price);
   ul.appendChild(additional_instructions);
 
 });
