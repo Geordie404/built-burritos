@@ -108,6 +108,8 @@ build.addEventListener('click', function (event) {
   let msg = document.getElementById('msg');
   let today = new Date();
 
+  // data from selects
+
   let burrito_base = document.getElementById('base-options')
   let burrito_protein = document.getElementById('protein-options')
   let burrito_protein_extra = document.getElementById('protein-seconds')
@@ -115,9 +117,18 @@ build.addEventListener('click', function (event) {
   let burrito_beans = document.getElementById('beans-options')
   let protien_price = document.getElementById('cost-1')
   let protien_price_extra = document.getElementById('cost-2')
-  // let protein_cost = parseInt(burrito_protein.price) + parseInt(burrito_protein_2.price)
 
-  console.log(burrito_base.value);
+  // data from checkboxes
+
+  let burrito_topping_cheese = document.getElementById('cheese-checkbox').checked
+  let burrito_topping_cilantro = document.getElementById('cilantro-checkbox').checked
+  let burrito_topping_onion = document.getElementById('onion-checkbox').checked
+  let burrito_topping_jalapeno = document.getElementById('jalapeno-checkbox').checked
+  let burrito_topping_fajita = document.getElementById('fajita-checkbox').checked
+  let burrito_topping_salsa = document.getElementById('salsa-checkbox').checked
+  let burrito_topping_habanero = document.getElementById('habanero-checkbox').checked
+  let burrito_topping_pico = document.getElementById('pico-checkbox').checked
+  // let protein_cost = parseInt(burrito_protein.price) + parseInt(burrito_protein_2.price)
 
 
     channel.push('shout-burrito', { // send the message to the server on "shout" channel
@@ -125,12 +136,14 @@ build.addEventListener('click', function (event) {
       time: today,
       name: name.value || "guest",     // get value of "name" of person sending the message. Set guest as default
       message:msg.value || "no extra instructions",  // get message text (value) from msg input field.
-      // code for ingredient fields
+      // ingredient fields
       base: burrito_base.value,
       protein: burrito_protein.value,
       extra: burrito_protein_extra.value,
       rice: burrito_rice.value,
       beans: burrito_beans.value
+      // toppings fields
+      
 
     });
     msg.value = '';         // reset the message input field for next message.
