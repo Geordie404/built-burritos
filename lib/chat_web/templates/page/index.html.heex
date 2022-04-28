@@ -1,87 +1,93 @@
 
+
+<div class="top-row">
+  <div class="col-xs-3" style="width: 60%; margin-right: 10px; margin-top: 10px">
+    <input type="text" id="name" class="form-control" placeholder="Your Name" style="border: 1px black solid; font-size: 1.3em;" autofocus>
+  </div>
+  <div class="col-xs-3" style="margin-left: 10px; margin-right: 10px; margin-top: 10px">
+    <input id="finalize-button" type="button" value="Build Burrito">
+  </div>
+  <div class="col-xs-3" style="margin-left: 10px; margin-top: 10px">
+    <input id="purchase-button" type="button" value="Purchase Burrito">
+  </div>
+</div>
 <!-- Burruto builder UI goes Here -->
 <div class="burrito-box">
 
   <div class="base">
     <label for="base-options">Burrito Base:</label>
     <select name="base-options" id="base-options">
-      <option id="base-flour" value="flour">Flour</option>
-      <option id="base-wheat" value="wheat">Wheat</option>
-      <option id="base-bowl" value="bowl">Bowl</option>
-      <option id="base-greens" value="salad">Greens</option>
+      <option id="base-flour" value="flour">Flour Tortilla </option>
+      <option id="base-wheat" value="wheat">Wheat Tortilla </option>
+      <option id="base-bowl" value="bowl">Burrito Bowl </option>
+      <option id="base-greens" value="salad">Bowl w/ Greens </option>
     </select>
   </div>
 
   <div class="protein">
-
     <label for="protein-options">First Protein:</label>
     <select name="protein-options" id="protein-options">
-      <option id="cost-1" value="beef">Ground Beef</option>
-      <option id="cost-1" value="chicken">Spicy Chicken</option>
-      <option id="cost-1" value="steak">Carne Asada</option>
-      <option id="cost-1" value="plant">Plant-Based</option>
+      <option id="cost-1" value="beef">Ground Beef </option>
+      <option id="cost-1" value="chicken">Spicy Chicken </option>
+      <option id="cost-1" value="steak">Carne Asada </option>
+      <option id="cost-1" value="plant">Plant-Based </option>
     </select>
+    </div>
 
+    <div class="protein">
     <label for="protein-seconds">Second Protein:</label>
     <select name="protein-seconds" id="protein-seconds">
-      <option id="cost-2" value="false">None Extra</option>
-      <option id="cost-2" value="x-beef">Ground Beef</option>
-      <option id="cost-2" value="x-chicken">Spicy Chicken</option>
-      <option id="cost-2" value="x-steak">Carne Asada</option>
-      <option id="cost-2" value="x-plant-based">Plant-Based</option>
+      <option id="cost-2" value="false">None Extra </option>
+      <option id="cost-2" value="x-beef">Ground Beef </option>
+      <option id="cost-2" value="x-chicken">Spicy Chicken </option>
+      <option id="cost-2" value="x-steak">Carne Asada </option>
+      <option id="cost-2" value="x-plant-based">Plant-Based </option>
     </select>
-
   </div>
 
   <div class="rice">
     <label for="rice-options">Rice:</label>
     <select name="rice-options" id="rice-options">
-      <option id="rice-white" value="white">White Rice</option>
-      <option id="rice-brown" value="brown">Brown Rice</option>
-      <option id="rice-spanish" value="spanish">Spanish Rice</option>
-      <option id="rice-none" value="no rice">No Rice</option>
+      <option id="rice-white" value="white">White Rice </option>
+      <option id="rice-brown" value="brown">Brown Rice </option>
+      <option id="rice-spanish" value="spanish">Spanish Rice </option>
+      <option id="rice-none" value="no rice">No Rice </option>
     </select>
   </div>
 
   <div class="beans">
-    <label for="beans-options">Beans</label>
+    <label for="beans-options">Beans:</label>
     <select name="beans-options" id="beans-options">
-      <option id="beans-black" value="black">Black Beans</option>
-      <option id="beans-pinto" value="pinto">Pinto Beans</option>
-      <option id="beans-refried" value="refried">Refried Beans</option>
-      <option id="beans-none" value="no beans">No Beans</option>
+      <option id="beans-black" value="black">Black Beans </option>
+      <option id="beans-pinto" value="pinto">Pinto Beans </option>
+      <option id="beans-refried" value="refried">Refried Beans </option>
+      <option id="beans-none" value="no beans">No Beans </option>
     </select>
   </div>
-
-  <div class="toppings">
-    <label><input type="checkbox" id="cheese-checkbox" data-calories="100" value="cheese"> Shredded Cheese</label>
-    <label><input type="checkbox" id="cilantro-checkbox" value="cilantro"> Cliantro</label>
-    <label><input type="checkbox" id="onion-checkbox" value="onion"> Diced Onion</label>
-    <label><input type="checkbox" id="jalapeno-checkbox" value="jalapeno"> Diced Jalapeno</label>
-    <label><input type="checkbox" id="fajita-checkbox" value="fajita"> Fajita Vegetables</label>
-    <label><input type="checkbox" id="salsa-checkbox" value="salsa"> Salsa Roja</label>
-    <label><input type="checkbox" id="habanero-checkbox" value="habanero"> Habanero Salsa</label>
-    <label><input type="checkbox" id="pico-checkbox" value="pico"> Pico de Gallo</label>
-
-  </div>
-
-
-  <div class="finalize">
-    <input id="finalize-button" type="button" value="Build Burrito">
-    <input id="past-button" type="button" value="Show Past Orders">
-  </div>
-
 </div>
 
+<div class="toppings">
+  <label><input type="checkbox" id="cheese-checkbox" value="cheese"> Shredded Cheese</label>
+  <label><input type="checkbox" id="cilantro-checkbox" value="cilantro"> Cliantro</label>
+  <label><input type="checkbox" id="onion-checkbox" value="onion"> Diced Onion</label>
+  <label><input type="checkbox" id="jalapeno-checkbox" value="jalapeno"> Diced Jalapeno</label>
+</div>
+
+<div class="toppings">
+  <label><input type="checkbox" id="fajita-checkbox" value="fajita"> Fajita Vegetables</label>
+  <label><input type="checkbox" id="salsa-checkbox" value="salsa"> Salsa Roja</label>
+  <label><input type="checkbox" id="habanero-checkbox" value="habanero"> Habanero Salsa</label>
+  <label><input type="checkbox" id="pico-checkbox" value="pico"> Pico de Gallo</label>
+</div>
 <!-- The list of messages will appear here: -->
 
 
 <div class="row">
-  <div class="col-xs-3" style="width: 20%; margin-left: 10px; margin-top: 10px">
-    <input type="text" id="name" class="form-control" placeholder="Name" style="border: 1px black solid; font-size: 1.3em;" autofocus>
+  <div class="col-xs-9" style="width: 75%; margin-left: 10px; margin-top: 10px; margin-right: 10px;">
+    <input type="text" id="msg" class="form-control" placeholder="Additional Order Details" style="border: 1px black solid; font-size: 1.3em;">
   </div>
-  <div class="col-xs-9" style="width: 100%; margin-left: 10px; margin-top: 10px; margin-right: 10px;">
-    <input type="text" id="msg" class="form-control" placeholder="Message [ Enter ] (Localhost)" style="border: 1px black solid; font-size: 1.3em;">
+  <div class="col-xs-3" style="width: 15%; margin-top: 10px">
+    <input id="past-button" type="button" value="Show Past Orders">
   </div>
 </div>
 

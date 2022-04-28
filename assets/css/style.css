@@ -1,0 +1,16 @@
+.burrito-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.top-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.toppings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

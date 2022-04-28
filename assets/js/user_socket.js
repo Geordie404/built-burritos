@@ -173,7 +173,7 @@ build.addEventListener('click', function (event) {
       calories: 0,
       purchased: false
     });
-    msg.value = '';         // reset the message input field for next message.
+    // msg.value = '';         // reset the message input field for next message.
 
     // let ul = document.getElementById('msg-list');
 });
