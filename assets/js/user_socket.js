@@ -102,11 +102,13 @@ channel.join()
 
 let build = document.getElementById('finalize-button'); //finalize burrito button
 build.addEventListener('click', function (event) {
-  console.log("built burrito");
 
   let name = document.getElementById('name');          // name of message sender
   let msg = document.getElementById('msg');
   let today = new Date();
+  let time = today.toLocaleTimeString();
+  let date = today.toLocaleDateString();
+
 
   // data from selects
 
@@ -120,20 +122,35 @@ build.addEventListener('click', function (event) {
 
   // data from checkboxes
 
-  let burrito_topping_cheese = document.getElementById('cheese-checkbox').checked
-  let burrito_topping_cilantro = document.getElementById('cilantro-checkbox').checked
-  let burrito_topping_onion = document.getElementById('onion-checkbox').checked
-  let burrito_topping_jalapeno = document.getElementById('jalapeno-checkbox').checked
-  let burrito_topping_fajita = document.getElementById('fajita-checkbox').checked
-  let burrito_topping_salsa = document.getElementById('salsa-checkbox').checked
-  let burrito_topping_habanero = document.getElementById('habanero-checkbox').checked
-  let burrito_topping_pico = document.getElementById('pico-checkbox').checked
+  let topping_cheese = document.getElementById('cheese-checkbox')
+  let topping_cilantro = document.getElementById('cilantro-checkbox')
+  let topping_onion = document.getElementById('onion-checkbox')
+  let topping_jalapeno = document.getElementById('jalapeno-checkbox')
+  let topping_fajita = document.getElementById('fajita-checkbox')
+  let topping_salsa = document.getElementById('salsa-checkbox')
+  let topping_habanero = document.getElementById('habanero-checkbox')
+  let topping_pico = document.getElementById('pico-checkbox')
   // let protein_cost = parseInt(burrito_protein.price) + parseInt(burrito_protein_2.price)
+
+  var toppings_list = "none"
+  if (topping_cheese.checked) {toppings_list = toppings_list.concat(", ", topping_cheese.value)}
+  if (topping_cilantro.checked) {toppings_list = toppings_list.concat(", ", topping_cilantro.value)}
+  if (topping_onion.checked) {toppings_list = toppings_list.concat(", ", topping_onion.value)}
+  if (topping_jalapeno.checked) {toppings_list = toppings_list.concat(", ", topping_jalapeno.value)}
+  if (topping_fajita.checked) {toppings_list = toppings_list.concat(", ", topping_fajita.value)}
+  if (topping_salsa.checked) {toppings_list = toppings_list.concat(", ", topping_salsa.value)}
+  if (topping_habanero.checked) {toppings_list = toppings_list.concat(", ", topping_habanero.value)}
+  if (topping_pico.checked) {toppings_list = toppings_list.concat(", ", topping_pico.value)}
+  if (toppings_list.length > 4) { toppings_list = toppings_list.slice(6)}
+  if (toppings_list == "none") { toppings_list = "no toppings"}
+
+
 
 
     channel.push('shout-burrito', { // send the message to the server on "shout" channel
       burrito: true,
-      time: today,
+      time: time,
+      date: date,
       name: name.value || "guest",     // get value of "name" of person sending the message. Set guest as default
       message:msg.value || "no extra instructions",  // get message text (value) from msg input field.
       // ingredient fields
@@ -141,10 +158,18 @@ build.addEventListener('click', function (event) {
       protein: burrito_protein.value,
       extra: burrito_protein_extra.value,
       rice: burrito_rice.value,
-      beans: burrito_beans.value
+      beans: burrito_beans.value,
       // toppings fields
-      
-
+      cheese: topping_cheese.checked,
+      cilantro: topping_cilantro.checked,
+      onion: topping_onion.checked,
+      jalapeno: topping_jalapeno.checked,
+      fajita: topping_fajita.checked,
+      salsa: topping_salsa.checked,
+      habanero: topping_habanero.checked,
+      pico: topping_pico.checked,
+      // list of all toppings
+      toppings: toppings_list
     });
     msg.value = '';         // reset the message input field for next message.
 
@@ -166,20 +191,24 @@ channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
   let ul = document.getElementById('msg-list');
   ul.innerHTML = "";
   let order_details = document.createElement("li"); // create new list item DOM element
-  let burrito_details = document.createElement("li");
+  let burrito_ingredients = document.createElement("li");
+  let burrito_toppings = document.createElement("li");
   let additional_instructions = document.createElement("li");
   // let today = new Date();
   // let time = today.getHours() + ":" + today.getMinutes();
   // let name = payload.name || 'guest';    // get name from payload or set default
 
-  order_details.innerHTML = '<b>' + payload.name + "'s burrito" + '</b>' + ' | ' + "order time: " + '<span id="time">' + payload.time + '</span>'
-  burrito_details.innerHTML =
-  "ingredients | " + "base: " + payload.base + ", proteins: " + payload.protein + ", extra protein: " + payload.extra
+  order_details.innerHTML = '<b>' + payload.name + "'s burrito" + '</b>'
+  + " ordered on " + payload.date + " at " + payload.time
+  burrito_ingredients.innerHTML =
+  "burrito " + "base: " + payload.base + ", proteins: " + payload.protein + ", extra protein: " + payload.extra
   + ", rice: " + payload.rice + ", beans: " + payload.beans
-  additional_instructions.innerHTML = "additional instructions: " + payload.message
+  burrito_toppings.innerHTML = "toppings : " + payload.toppings
+  additional_instructions.innerHTML = "additional notes: " + payload.message
 
   ul.appendChild(order_details);
-  ul.appendChild(burrito_details);
+  ul.appendChild(burrito_ingredients);
+  ul.appendChild(burrito_toppings);
   ul.appendChild(additional_instructions);
 
 });
@@ -192,10 +221,13 @@ channel.on('shout-past-burritos', function (payload) { // listen to the 'shout' 
   // let today = new Date();
   // let time = today.getHours() + ":" + today.getMinutes();
   // let name = payload.name || 'guest';    // get name from payload or set default
-  order_details.innerHTML = '<b>' + payload.name + "'s burrito" + '</b>' + ' | ' + "order time: " + '<span id="time">' + payload.time + '</span>'
-  + "| ingredients: " + payload.base + ", " + payload.protein + ", " + payload.extra + ", " + payload.rice + ", " + payload.beans
+  order_details.innerHTML = '<b>' + payload.name + "'s burrito" + '</b>' + " ordered on " + payload.date + " at " + payload.time
+
+  burrito_details.innerHTML = "burrito base: " + payload.base + ", " + payload.protein + ", " + payload.extra + ", " + payload.rice + ", " + payload.beans
+  + " | burrito toppings: " + payload.toppings
 
   ul.appendChild(order_details);
+  ul.appendChild(burrito_details);
 
 });
 

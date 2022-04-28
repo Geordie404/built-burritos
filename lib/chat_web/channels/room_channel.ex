@@ -27,7 +27,7 @@ defmodule ChatWeb.RoomChannel do
   end
 
   @impl true
-  def handle_in("past-orders", payload, socket) do
+  def handle_in("past-orders", _payload, socket) do
     send(self(), :past_burritos)
     {:noreply, socket}
   end
@@ -51,18 +51,22 @@ defmodule ChatWeb.RoomChannel do
 #   {:noreply, socket} # :noreply
 # end
 
+@impl true
 def handle_info(:past_burritos, socket) do
   Chat.Burrito.get_burritos()
   # |> Enum.reverse() # revers to display the latest message at the bottom of the page
   |> Enum.each(fn burrito -> push(socket, "shout-past-burritos", %{
       time: burrito.time,
+      date: burrito.date,
       name: burrito.name,
       message: burrito.message,
+      # ingredients
       base: burrito.base,
       protein: burrito.protein,
       extra: burrito.extra,
       rice: burrito.rice,
-      beans: burrito.beans
+      beans: burrito.beans,
+      toppings: burrito.toppings
     }) end)
   {:noreply, socket} # :noreply
 end
