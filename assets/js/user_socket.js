@@ -60,36 +60,37 @@ let channel = socket.channel("room:lobby", {})
 
 // code for chat room window
 
-channel.on('shout', function (payload) { // listen to the 'shout' event
-  let li = document.createElement("li"); // create new list item DOM element
-  let today = new Date();
-  let time = today.getHours() + ":" + today.getMinutes();
-  let name = payload.name || 'guest';    // get name from payload or set default
-  li.innerHTML = '<span id="time">' + '[ ' + time + ' ] ' + '</span>' + '<b>' + name + '</b>: ' + payload.message + '\n'; // set li contents
-  ul.appendChild(li);                    // append to list
-  ul.lastChild.scrollIntoView()
-});
+// channel.on('shout', function (payload) { // listen to the 'shout' event
+//   let li = document.createElement("li"); // create new list item DOM element
+//   let today = new Date();
+//   let time = today.getHours() + ":" + today.getMinutes();
+//   let name = payload.name || 'guest';    // get name from payload or set default
+//   li.innerHTML = '<span id="time">' + '[ ' + time + ' ] ' + '</span>' + '<b>' + name + '</b>: ' + payload.message + '\n'; // set li contents
+//   ul.appendChild(li);                    // append to list
+//   ul.lastChild.scrollIntoView()
+// });
+
 
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
-let ul = document.getElementById('msg-list');        // list of messages.
-let today = new Date();
-let time = today.getHours() + ":" + today.getMinutes(); // time message sent
-let name = document.getElementById('name');          // name of message sender
-let msg = document.getElementById('msg');            // message input field
+// let ul = document.getElementById('msg-list');        // list of messages.
+// let today = new Date();
+// let time = today.getHours() + ":" + today.getMinutes(); // time message sent
+// let name = document.getElementById('name');          // name of message sender
+// let msg = document.getElementById('msg');            // message input field
 
-msg.addEventListener('keypress', function (event) {
-  if (event.keyCode == 13 && msg.value.length > 0) { // don't sent empty msg.
-    channel.push('shout', { // send the message to the server on "shout" channel
-      time: time,
-      name: name.value || "guest",     // get value of "name" of person sending the message. Set guest as default
-      message: msg.value    // get message text (value) from msg input field.
-    });
-    msg.value = '';         // reset the message input field for next message.
-  }
-});
+// msg.addEventListener('keypress', function (event) {
+//   if (event.keyCode == 13 && msg.value.length > 0) { // don't sent empty msg.
+//     channel.push('shout', { // send the message to the server on "shout" channel
+//       time: time,
+//       name: name.value || "guest",     // get value of "name" of person sending the message. Set guest as default
+//       message: msg.value    // get message text (value) from msg input field.
+//     });
+//     msg.value = '';         // reset the message input field for next message.
+//   }
+// });
 
 // code for burrito maker
 
@@ -102,6 +103,10 @@ msg.addEventListener('keypress', function (event) {
 let build = document.getElementById('finalize-button'); //finalize burrito button
 build.addEventListener('click', function (event) {
   console.log("built burrito");
+
+  let name = document.getElementById('name');          // name of message sender
+  let msg = document.getElementById('msg');
+  let today = new Date();
 
   let burrito_base = document.getElementById('base-options')
   let burrito_protein = document.getElementById('protein-options')
@@ -117,9 +122,9 @@ build.addEventListener('click', function (event) {
 
     channel.push('shout-burrito', { // send the message to the server on "shout" channel
       burrito: true,
-      time: time,
+      time: today,
       name: name.value || "guest",     // get value of "name" of person sending the message. Set guest as default
-      message:msg.value ||"burrito",  // get message text (value) from msg input field.
+      message:msg.value || "no extra instructions",  // get message text (value) from msg input field.
       // code for ingredient fields
       base: burrito_base.value,
       protein: burrito_protein.value,
@@ -129,8 +134,56 @@ build.addEventListener('click', function (event) {
 
     });
     msg.value = '';         // reset the message input field for next message.
+
+    // let ul = document.getElementById('msg-list');
 });
 
+//shows past orders
+let past_orders = document.getElementById('past-button'); //show past burritos
+past_orders.addEventListener('click', function (event) {
+  let ul = document.getElementById('msg-list');
+  ul.innerHTML = "";
+  channel.push('past-orders');
+ });
 
+
+// shout code for burrito
+
+channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
+  let ul = document.getElementById('msg-list');
+  ul.innerHTML = "";
+  let order_details = document.createElement("li"); // create new list item DOM element
+  let burrito_details = document.createElement("li");
+  let additional_instructions = document.createElement("li");
+  // let today = new Date();
+  // let time = today.getHours() + ":" + today.getMinutes();
+  // let name = payload.name || 'guest';    // get name from payload or set default
+
+  order_details.innerHTML = '<b>' + payload.name + "'s burrito" + '</b>' + ' | ' + "order time: " + '<span id="time">' + payload.time + '</span>'
+  burrito_details.innerHTML =
+  "ingredients | " + "base: " + payload.base + ", proteins: " + payload.protein + ", extra protein: " + payload.extra
+  + ", rice: " + payload.rice + ", beans: " + payload.beans
+  additional_instructions.innerHTML = "additional instructions: " + payload.message
+
+  ul.appendChild(order_details);
+  ul.appendChild(burrito_details);
+  ul.appendChild(additional_instructions);
+
+});
+
+channel.on('shout-past-burritos', function (payload) { // listen to the 'shout' event
+  let ul = document.getElementById('msg-list');
+  let order_details = document.createElement("li"); // create new list item DOM element
+  let burrito_details = document.createElement("li");
+
+  // let today = new Date();
+  // let time = today.getHours() + ":" + today.getMinutes();
+  // let name = payload.name || 'guest';    // get name from payload or set default
+  order_details.innerHTML = '<b>' + payload.name + "'s burrito" + '</b>' + ' | ' + "order time: " + '<span id="time">' + payload.time + '</span>'
+  + "| ingredients: " + payload.base + ", " + payload.protein + ", " + payload.extra + ", " + payload.rice + ", " + payload.beans
+
+  ul.appendChild(order_details);
+
+});
 
 export default socket

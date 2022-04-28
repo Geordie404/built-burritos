@@ -25,7 +25,7 @@ defmodule Chat.Burrito do
     |> validate_required([:burrito, :name, :message, :time, :base, :protein, :extra, :rice, :beans])
   end
 
-  def get_messages(limit \\ 20) do
+  def get_burritos(limit \\ 20) do
     Chat.Burrito
     |> limit(^limit)
     |> order_by(desc: :inserted_at)

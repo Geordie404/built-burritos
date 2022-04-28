@@ -1,45 +1,3 @@
-<!-- <section class="phx-hero">
-  <h1><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h1>
-  <p>Peace of mind from prototype to production</p>
-</section>
-
-<section class="row">
-  <article class="column">
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <a href="https://hexdocs.pm/phoenix/overview.html">Guides &amp; Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix/blob/v1.6/CHANGELOG.md">v1.6 Changelog</a>
-      </li>
-    </ul>
-  </article>
-  <article class="column">
-    <h2>Help</h2>
-    <ul>
-      <li>
-        <a href="https://elixirforum.com/c/phoenix-forum">Forum</a>
-      </li>
-      <li>
-        <a href="https://web.libera.chat/#elixir">#elixir on Libera Chat (IRC)</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">Twitter @elixirphoenix</a>
-      </li>
-      <li>
-        <a href="https://elixir-slackin.herokuapp.com/">Elixir on Slack</a>
-      </li>
-      <li>
-        <a href="https://discord.gg/elixir">Elixir on Discord</a>
-      </li>
-    </ul>
-  </article>
-
-</section> -->
 
 <!-- Burruto builder UI goes Here -->
 <div class="burrito-box">
@@ -88,8 +46,8 @@
   <div class="beans">
     <label for="beans-options">Beans</label>
     <select name="beans-options" id="beans-options">
-      <option id="beans-black" value="white">Black Beans</option>
-      <option id="beans-pinto" value="brown">Pinto Beans</option>
+      <option id="beans-black" value="black">Black Beans</option>
+      <option id="beans-pinto" value="pinto">Pinto Beans</option>
       <option id="beans-refried" value="refried">Refried Beans</option>
       <option id="beans-none" value="none">No Beans</option>
     </select>
@@ -97,21 +55,18 @@
 
 
   <div class="finalize">
-    <b> Finalize:   </b>
-    <input id="finalize-button" type="button" value="Build">
-    <b id="burrito contents"> 0 </b>
+    <b> Finalize: </b>
+    <input id="finalize-button" type="button" value="Build Burrito">
+
+
+    <b> Show Past Orders:   </b>
+    <input id="past-button" type="button" value="Show Past Orders">
+
   </div>
 
 </div>
 
 <!-- The list of messages will appear here: -->
-
-
-
-<div class="chat-box">
-  <ul id="msg-list" style="list-style: none;">
-  </ul>
-</div>
 
 
 <div class="row">
@@ -121,4 +76,9 @@
   <div class="col-xs-9" style="width: 100%; margin-left: 10px; margin-top: 10px; margin-right: 10px;">
     <input type="text" id="msg" class="form-control" placeholder="Message [ Enter ] (Localhost)" style="border: 1px black solid; font-size: 1.3em;">
   </div>
+</div>
+
+<div class="chat-box">
+  <ul id="msg-list" style="list-style: none;">
+  </ul>
 </div>
