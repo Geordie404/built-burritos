@@ -50,11 +50,22 @@ defmodule Chat.Burrito do
 
   end
 
-  def get_burritos(limit \\ 50) do
+  def get_all_burritos(limit \\ 100) do
     Chat.Burrito
     |> limit(^limit)
     |> order_by(desc: :inserted_at)
     |> Chat.Repo.all()
+  end
+
+  def get_user_burritos(name, limit \\ 10) do
+
+    query = from burrito in Chat.Burrito,
+            where: burrito.name == ^name,
+            limit: ^limit,
+            order_by: [desc: :inserted_at]
+
+    Chat.Repo.all(query)
+
   end
 
   defp get_macros_and_price(changeset) do

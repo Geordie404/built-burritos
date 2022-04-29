@@ -141,13 +141,22 @@ build.addEventListener('click', function (event) {
     // let ul = document.getElementById('msg-list');
 });
 
-//shows past orders
+//shows all past orders
 let past_orders = document.getElementById('past-button'); //show past burritos
 past_orders.addEventListener('click', function (event) {
   let ul = document.getElementById('msg-list');
   ul.innerHTML = "";
   channel.push('past-orders');
  });
+
+ //shows users past orders
+ let users_orders = document.getElementById('name-filter-button'); //show past burritos
+ users_orders.addEventListener('click', function (event) {
+   let name = document.getElementById('name');
+   let ul = document.getElementById('msg-list');
+   ul.innerHTML = "YOUR PAST ORDERS";
+   channel.push('named-orders', name.value || "guest");
+  });
 
 // shout code for burrito
 
