@@ -1,15 +1,18 @@
 
 
 <div class="top-row">
-  <div class="col-xs-3" style="width: 60%; margin-right: 10px; margin-top: 10px">
+  <div class="col-xs-3" style="width: 20%; margin-right: 10px; margin-top: 10px">
     <input type="text" id="name" class="form-control" placeholder="Your Name" style="border: 1px black solid; font-size: 1.3em;" autofocus>
+  </div>
+  <div class="col-xs-9" style="width: 60%; margin-left: 10px; margin-top: 10px; margin-right: 10px;">
+    <input type="text" id="msg" class="form-control" placeholder="Additional Order Details" style="border: 1px black solid; font-size: 1.3em;">
   </div>
   <div class="col-xs-3" style="margin-left: 10px; margin-right: 10px; margin-top: 10px">
     <input id="finalize-button" type="button" value="Build Burrito">
   </div>
-  <div class="col-xs-3" style="margin-left: 10px; margin-top: 10px">
-    <input id="purchase-button" type="button" value="Purchase Burrito">
-  </div>
+  <!-- <div class="col-xs-3" style="margin-left: 10px; margin-top: 10px">
+    <input id="past-button" type="button" value="Past Burritos">
+  </div> -->
 </div>
 <!-- Burruto builder UI goes Here -->
 <div class="burrito-box">
@@ -79,19 +82,15 @@
   <label><input type="checkbox" id="habanero-checkbox" value="habanero"> Habanero Salsa</label>
   <label><input type="checkbox" id="pico-checkbox" value="pico"> Pico de Gallo</label>
 </div>
+
 <!-- The list of messages will appear here: -->
-
-
-<div class="row">
-  <div class="col-xs-9" style="width: 75%; margin-left: 10px; margin-top: 10px; margin-right: 10px;">
-    <input type="text" id="msg" class="form-control" placeholder="Additional Order Details" style="border: 1px black solid; font-size: 1.3em;">
-  </div>
-  <div class="col-xs-3" style="width: 15%; margin-top: 10px">
-    <input id="past-button" type="button" value="Show Past Orders">
-  </div>
-</div>
-
 <div class="chat-box">
   <ul id="msg-list" style="list-style: none;">
   </ul>
+</div>
+
+<div class="row">
+  <div class="col-xs-3" style="width: 15%; margin-left: 10px; margin-top: 10px">
+    <input id="past-button" type="button" value="Show Past Orders">
+  </div>
 </div>

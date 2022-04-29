@@ -7,7 +7,6 @@ defmodule ChatWeb.RoomChannel do
       {:ok, socket}
   end
 
-
   @impl true
   def handle_in("shout-burrito", payload, socket) do
     Chat.Burrito.changeset(%Chat.Burrito{}, payload) |> Chat.Repo.insert  # insert into repo
@@ -21,11 +20,17 @@ defmodule ChatWeb.RoomChannel do
     {:noreply, socket}
   end
 
+  @impl true
+  def handle_in("past-orders", _payload, socket) do
+    send(self(), :past_burritos)
+    {:noreply, socket}
+  end
+
+
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (room:lobby).
 
   # getting messages from the database to display
-
 
 # populate the li when join channel
 

@@ -58,45 +58,9 @@ socket.connect()
 // subtopic is its id - in this case 42:
 let channel = socket.channel("room:lobby", {})
 
-// code for chat room window
-
-// channel.on('shout', function (payload) { // listen to the 'shout' event
-//   let li = document.createElement("li"); // create new list item DOM element
-//   let today = new Date();
-//   let time = today.getHours() + ":" + today.getMinutes();
-//   let name = payload.name || 'guest';    // get name from payload or set default
-//   li.innerHTML = '<span id="time">' + '[ ' + time + ' ] ' + '</span>' + '<b>' + name + '</b>: ' + payload.message + '\n'; // set li contents
-//   ul.appendChild(li);                    // append to list
-//   ul.lastChild.scrollIntoView()
-// });
-
-
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
-
-// let ul = document.getElementById('msg-list');        // list of messages.
-// let today = new Date();
-// let time = today.getHours() + ":" + today.getMinutes(); // time message sent
-// let name = document.getElementById('name');          // name of message sender
-// let msg = document.getElementById('msg');            // message input field
-
-// msg.addEventListener('keypress', function (event) {
-//   if (event.keyCode == 13 && msg.value.length > 0) { // don't sent empty msg.
-//     channel.push('shout', { // send the message to the server on "shout" channel
-//       time: time,
-//       name: name.value || "guest",     // get value of "name" of person sending the message. Set guest as default
-//       message: msg.value    // get message text (value) from msg input field.
-//     });
-//     msg.value = '';         // reset the message input field for next message.
-//   }
-// });
-
-// code for burrito maker
-
-
-
-
 
 // Finalize burrito button
 
@@ -130,8 +94,9 @@ build.addEventListener('click', function (event) {
   let topping_salsa = document.getElementById('salsa-checkbox')
   let topping_habanero = document.getElementById('habanero-checkbox')
   let topping_pico = document.getElementById('pico-checkbox')
-  // let protein_cost = parseInt(burrito_protein.price) + parseInt(burrito_protein_2.price)
 
+
+  // creates a string out of the checked boxes
   var toppings_list = "none"
   if (topping_cheese.checked) {toppings_list = toppings_list.concat(", ", topping_cheese.value)}
   if (topping_cilantro.checked) {toppings_list = toppings_list.concat(", ", topping_cilantro.value)}
@@ -143,8 +108,6 @@ build.addEventListener('click', function (event) {
   if (topping_pico.checked) {toppings_list = toppings_list.concat(", ", topping_pico.value)}
   if (toppings_list.length > 4) { toppings_list = toppings_list.slice(6)}
   if (toppings_list == "none") { toppings_list = "no toppings"}
-
-
 
 
     channel.push('shout-burrito', { // send the message to the server on "shout" channel
@@ -173,7 +136,7 @@ build.addEventListener('click', function (event) {
       calories: 0,
       purchased: false
     });
-    // msg.value = '';         // reset the message input field for next message.
+    msg.value = '';         // reset the message input field for next message.
 
     // let ul = document.getElementById('msg-list');
 });
@@ -185,7 +148,6 @@ past_orders.addEventListener('click', function (event) {
   ul.innerHTML = "";
   channel.push('past-orders');
  });
-
 
 // shout code for burrito
 
@@ -201,9 +163,6 @@ channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
 
   let extra = payload.extra;
   if (extra == "false") {extra = "no extra"} else {extra = extra.slice(2)};
-  // let today = new Date();
-  // let time = today.getHours() + ":" + today.getMinutes();
-  // let name = payload.name || 'guest';    // get name from payload or set default
 
   order_details.innerHTML = '<b>' + payload.name + "'s " + payload.protein + " burrito" + '</b>'
   + " ordered on " + payload.date + " at " + payload.time
@@ -222,7 +181,6 @@ channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
   ul.appendChild(burrito_nutrition);
   ul.appendChild(burrito_price);
 
-
 });
 
 channel.on('shout-past-burritos', function (payload) { // listen to the 'shout' event
@@ -232,10 +190,6 @@ channel.on('shout-past-burritos', function (payload) { // listen to the 'shout' 
   let extra = payload.extra;
   if (extra == "false") {extra = "no extra"} else {extra = extra.slice(2)};
 
-
-  // let today = new Date();
-  // let time = today.getHours() + ":" + today.getMinutes();
-  // let name = payload.name || 'guest';    // get name from payload or set default
   order_details.innerHTML = '<b>' + payload.name + "'s burrito" + '</b>' + " ordered on " + payload.date + " at " + payload.time
 
   burrito_details.innerHTML = "burrito base: " + payload.base + ", " + payload.protein + ", " + extra + ", " + payload.rice + ", " + payload.beans

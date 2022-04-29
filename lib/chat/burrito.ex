@@ -57,7 +57,6 @@ defmodule Chat.Burrito do
     |> Chat.Repo.all()
   end
 
-
   defp get_macros_and_price(changeset) do
     caloric_ingredients = ["base", "protein", "extra", "rice", "beans"]
     caloric_toppings = ["cheese", "cilantro", "onion", "jalapeno", "fajita", "salsa", "habanero", "pico"]
@@ -68,11 +67,11 @@ defmodule Chat.Burrito do
       "beef" => 200,
       "chicken" => 150,
       "steak" => 250,
-      "plant" => 90,
+      "plant-based" => 90,
       "x-beef" => 200,
       "x-chicken" => 150,
       "x-steak" => 250,
-      "x-plant" => 90,
+      "x-plant-based" => 90,
       "white" => 200,
       "brown" => 180,
       "spanish" => 220,
@@ -86,44 +85,42 @@ defmodule Chat.Burrito do
       "salsa" => 20,
       "habanero" => 10,
       "pico" => 40,
+    }
+
+    protein_map = %{
+      "flour" => 5,
+      "wheat" => 10,
+      "beef" => 45,
+      "chicken" => 50,
+      "steak" => 60,
+      "plant-based" => 40,
+      "x-beef" => 45,
+      "x-chicken" => 50,
+      "x-steak" => 60,
+      "x-plant-based" => 40,
+      "white" => 4,
+      "brown" => 8,
+      "spanish" => 4,
+      "black" => 5,
+      "pinto" => 6,
+      "refried" => 4,
+      "cheese" => 10,
       }
 
-      protein_map = %{
-        "flour" => 5,
-        "wheat" => 10,
-        "beef" => 45,
-        "chicken" => 50,
-        "steak" => 60,
-        "plant" => 40,
-        "x-beef" => 45,
-        "x-chicken" => 50,
-        "x-steak" => 60,
-        "x-plant" => 40,
-        "white" => 4,
-        "brown" => 8,
-        "spanish" => 4,
-        "black" => 5,
-        "pinto" => 6,
-        "refried" => 4,
-        "cheese" => 10,
-        }
-
-      price_map = %{
-        "flour" => 6.00,
-        "wheat" => 6.00,
-        "bowl" => 6.00,
-        "salad" => 6.50,
-        "beef" => 3.00,
-        "chicken" => 3.50,
-        "steak" => 4.50,
-        "plant" => 3.50,
-        "x-beef" => 3.00,
-        "x-chicken" => 3.50,
-        "x-steak" => 4.50,
-        "x-plant" => 3.50,
-        }
-
-
+    price_map = %{
+      "flour" => 6.00,
+      "wheat" => 6.00,
+      "bowl" => 6.00,
+      "salad" => 6.50,
+      "beef" => 3.00,
+      "chicken" => 3.50,
+      "steak" => 4.50,
+      "plant-based" => 3.50,
+      "x-beef" => 3.00,
+      "x-chicken" => 3.50,
+      "x-steak" => 4.50,
+      "x-plant-based" => 3.50,
+      }
 
     ingredients_filter = changeset.params
     |> Enum.filter(fn {k,_v} -> Enum.member?(caloric_ingredients, k) end)
