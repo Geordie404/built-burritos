@@ -196,7 +196,8 @@ channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
   let burrito_ingredients = document.createElement("li");
   let burrito_toppings = document.createElement("li");
   let additional_instructions = document.createElement("li");
-  let nutrition_price = document.createElement("li");
+  let burrito_nutrition = document.createElement("li");
+  let burrito_price = document.createElement("li");
 
   let extra = payload.extra;
   if (extra == "false") {extra = "no extra"} else {extra = extra.slice(2)};
@@ -204,20 +205,23 @@ channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
   // let time = today.getHours() + ":" + today.getMinutes();
   // let name = payload.name || 'guest';    // get name from payload or set default
 
-  order_details.innerHTML = '<b>' + payload.name + "'s burrito" + '</b>'
+  order_details.innerHTML = '<b>' + payload.name + "'s " + payload.protein + " burrito" + '</b>'
   + " ordered on " + payload.date + " at " + payload.time
   burrito_ingredients.innerHTML =
-  "burrito " + "base: " + payload.base + ", proteins: " + payload.protein + ", extra protein: " + extra
+  "burrito " + "base: " + payload.base + ", protein: " + payload.protein + ", extra-protein: " + extra
   + ", rice: " + payload.rice + ", beans: " + payload.beans
   burrito_toppings.innerHTML = "toppings : " + payload.toppings
   additional_instructions.innerHTML = "additional notes: " + payload.message
-  nutrition_price.innerHTML = "burrito macros: " + payload.calories + "kcal, " + payload.protein_grams + "g protein" + " burrito price: $" + payload.price
+  burrito_nutrition.innerHTML = '<b>' + "burrito macros: " + payload.calories + " calories, " + payload.protein_grams + " grams protein" + '</b>'
+  burrito_price.innerHTML = '<b>' + "Burrito Price: $" + payload.price + '</b>'
 
   ul.appendChild(order_details);
   ul.appendChild(burrito_ingredients);
   ul.appendChild(burrito_toppings);
-  ul.appendChild(nutrition_price);
   ul.appendChild(additional_instructions);
+  ul.appendChild(burrito_nutrition);
+  ul.appendChild(burrito_price);
+
 
 });
 
