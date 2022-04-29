@@ -110,11 +110,11 @@ build.addEventListener('click', function (event) {
   if (toppings_list == "none") { toppings_list = "no toppings"}
 
 
-    channel.push('shout-burrito', { // send the message to the server on "shout" channel
+    channel.push('build-burrito', { // send the message to the server on "shout" channel
       burrito: true,
       time: time,
       date: date,
-      name: name.value || "guest",     // get value of "name" of person sending the message. Set guest as default
+      name: name.value,     // get value of "name" of person sending the message. Set guest as default
       message:msg.value || "no extra instructions",  // get message text (value) from msg input field.
       // ingredient fields
       base: burrito_base.value,
@@ -136,7 +136,6 @@ build.addEventListener('click', function (event) {
       calories: 0,
       purchased: false
     });
-    msg.value = '';         // reset the message input field for next message.
 
     // let ul = document.getElementById('msg-list');
 });
@@ -161,10 +160,10 @@ past_orders.addEventListener('click', function (event) {
    else {
      ul.innerHTML = "no name entered";
    }
-   // console.log(payload)
+
   });
 
-// shout code for burrito
+// shout for burrito
 
 channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
   let ul = document.getElementById('msg-list');
@@ -181,13 +180,15 @@ channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
 
   order_details.innerHTML = '<b>' + payload.name + "'s " + payload.protein + " burrito" + '</b>'
   + " ordered on " + payload.date + " at " + payload.time
+
   burrito_ingredients.innerHTML =
   "burrito " + "base: " + payload.base + ", protein: " + payload.protein + ", extra-protein: " + extra
   + ", rice: " + payload.rice + ", beans: " + payload.beans
+
   burrito_toppings.innerHTML = "toppings : " + payload.toppings
   additional_instructions.innerHTML = "additional notes: " + payload.message
   burrito_nutrition.innerHTML = '<b>' + "burrito macros: " + payload.calories + " calories, " + payload.protein_grams + " grams protein" + '</b>'
-  burrito_price.innerHTML = '<b>' + "Burrito Price: $" + payload.price + '</b>'
+  burrito_price.innerHTML = '<b>' + "burrito Price: $" + payload.price + '</b>'
 
   ul.appendChild(order_details);
   ul.appendChild(burrito_ingredients);
@@ -195,7 +196,6 @@ channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
   ul.appendChild(additional_instructions);
   ul.appendChild(burrito_nutrition);
   ul.appendChild(burrito_price);
-
 });
 
 channel.on('shout-past-burritos', function (payload) { // listen to the 'shout' event
@@ -206,10 +206,11 @@ channel.on('shout-past-burritos', function (payload) { // listen to the 'shout' 
   if (extra == "false") {extra = "no extra"} else {extra = extra.slice(2)};
 
   order_details.innerHTML = '<b>' + payload.name + "'s burrito" + '</b>' + " ordered on " + payload.date + " at " + payload.time
+   + '<b>' + " for $" + payload.price + '</b>'
 
   burrito_details.innerHTML = "burrito base: " + payload.base + ", " + payload.protein + ", " + extra + ", " + payload.rice + ", " + payload.beans
   + " | toppings: " + payload.toppings + " | macros: " + payload.calories
-  + "kcal, " + payload.protein_grams + "g protein" + " | price: $" + payload.price
+  + "kcal, " + payload.protein_grams + "g protein"
 
   ul.appendChild(order_details);
   ul.appendChild(burrito_details);
@@ -219,6 +220,14 @@ channel.on('no-burritos', function() { // listen to the 'shout' event
   let ul = document.getElementById('msg-list');
   let order_details = document.createElement("li"); // create new list item DOM element
   order_details.innerHTML = "no past orders from this user"
+  ul.appendChild(order_details);
+});
+
+channel.on('no-name', function() { // listen to the 'shout' event
+  let ul = document.getElementById('msg-list');
+  ul.innerHTML = "";
+  let order_details = document.createElement("li"); // create new list item DOM element
+  order_details.innerHTML = "enter your name before you build a burrito"
   ul.appendChild(order_details);
 });
 

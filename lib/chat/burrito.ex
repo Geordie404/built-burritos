@@ -41,6 +41,8 @@ defmodule Chat.Burrito do
       :cheese, :cilantro, :onion, :jalapeno, :fajita, :salsa, :habanero, :pico,
       :toppings, :calories, :protein_grams, :price, :purchased])
 
+    |> capitalize(attrs, :name)
+
     |> validate_required([:burrito, :name, :message, :time, :date,
       :base, :protein, :extra, :rice, :beans,
       :cheese, :cilantro, :onion, :jalapeno, :fajita, :salsa, :habanero, :pico,
@@ -48,6 +50,10 @@ defmodule Chat.Burrito do
 
     |> get_macros_and_price()
 
+  end
+
+  defp capitalize(changeset, attrs, field) do
+    cast(changeset, Map.update!(attrs, to_string(field), &String.capitalize/1), [field])
   end
 
   def get_all_burritos(limit \\ 200) do

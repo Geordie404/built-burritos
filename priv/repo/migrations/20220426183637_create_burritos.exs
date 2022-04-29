@@ -8,7 +8,22 @@ defmodule Chat.Repo.Migrations.CreateBurritos do
       add :message, :string
       add :time, :string
 
+      add :cheese, :boolean
+      add :cilantro, :boolean
+      add :onion, :boolean
+      add :jalapeno, :boolean
+      add :fajita, :boolean
+      add :salsa, :boolean
+      add :habanero, :boolean
+      add :pico, :boolean
+
+      add :protein_grams
+      add :price, :float
+
+      add :purchased, :boolean
+
       timestamps()
+
     end
   end
 end

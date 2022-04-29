@@ -8,12 +8,21 @@ defmodule ChatWeb.RoomChannel do
   end
 
   @impl true
-  def handle_in("shout-burrito", payload, socket) do
-    Chat.Burrito.changeset(%Chat.Burrito{}, payload) |> Chat.Repo.insert  # insert into repo
-    Chat.Burrito.get_all_burritos(1)
-    |> burrito_display("shout-burrito", socket)
+  def handle_in("build-burrito", payload, socket) do
+    Chat.Burrito.changeset(%Chat.Burrito{}, payload)
+    |> Chat.Repo.insert #insert into repo
+    |> case do # patern match the insertion tuple
+      {:ok, _} ->
+        Chat.Burrito.get_all_burritos(1)
+        |> burrito_display("shout-burrito", socket)
+      {:error,_} ->
+        push(socket, "no-name", %{})
+
+    end
+
     {:noreply, socket}
   end
+
 
   @impl true
   def handle_in("past-orders", _payload, socket) do
@@ -25,15 +34,15 @@ defmodule ChatWeb.RoomChannel do
 
   @impl true
   def handle_in("named-orders", user_name, socket) do
-    user_burritos = Chat.Burrito.get_user_burritos(user_name)
-    user_burritos |> burrito_display("shout-past-burritos", socket)
+    user_burritos =  Chat.Burrito.get_user_burritos(String.capitalize(user_name))
 
-    # if the there are no burritos from the user
-    if (user_burritos == []) do
-      push(socket, "no-burritos", %{})
+    # need to use list of users burritos in first arguement of burrito_display
+    user_burritos
+    |> case do
+      [] -> push(socket, "no-burritos", %{})
+       _ -> burrito_display(user_burritos, "shout-past-burritos", socket)
     end
-
-    {:noreply, socket}
+      {:noreply, socket}
   end
 
   defp burrito_display(burritos, shout, socket) do
@@ -49,17 +58,12 @@ defmodule ChatWeb.RoomChannel do
         extra: burrito.extra,
         rice: burrito.rice,
         beans: burrito.beans,
+        # list of toppings that can easily be displayed
         toppings: burrito.toppings,
         calories: burrito.calories,
         protein_grams: burrito.protein_grams,
         price: burrito.price
       }) end)
   end
-
-
-  # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (room:lobby).
-
-  # getting messages from the database to display
 
 end
