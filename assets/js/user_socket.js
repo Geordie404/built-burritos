@@ -152,10 +152,16 @@ past_orders.addEventListener('click', function (event) {
  //shows users past orders
  let users_orders = document.getElementById('name-filter-button'); //show past burritos
  users_orders.addEventListener('click', function (event) {
-   let name = document.getElementById('name');
+   let name = document.getElementById('name').value || "";
    let ul = document.getElementById('msg-list');
-   ul.innerHTML = "YOUR PAST ORDERS";
-   channel.push('named-orders', name.value || "guest");
+   if (name.length > 0) {
+     ul.innerHTML = name + "'s past orders";
+     channel.push('named-orders', name);
+   }
+   else {
+     ul.innerHTML = "no name entered";
+   }
+   // console.log(payload)
   });
 
 // shout code for burrito
@@ -207,7 +213,15 @@ channel.on('shout-past-burritos', function (payload) { // listen to the 'shout' 
 
   ul.appendChild(order_details);
   ul.appendChild(burrito_details);
-
 });
+
+channel.on('no-burritos', function() { // listen to the 'shout' event
+  let ul = document.getElementById('msg-list');
+  let order_details = document.createElement("li"); // create new list item DOM element
+  order_details.innerHTML = "no past orders from this user"
+  ul.appendChild(order_details);
+});
+
+
 
 export default socket

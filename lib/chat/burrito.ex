@@ -50,7 +50,7 @@ defmodule Chat.Burrito do
 
   end
 
-  def get_all_burritos(limit \\ 100) do
+  def get_all_burritos(limit \\ 200) do
     Chat.Burrito
     |> limit(^limit)
     |> order_by(desc: :inserted_at)
@@ -58,7 +58,6 @@ defmodule Chat.Burrito do
   end
 
   def get_user_burritos(name, limit \\ 10) do
-
     query = from burrito in Chat.Burrito,
             where: burrito.name == ^name,
             limit: ^limit,

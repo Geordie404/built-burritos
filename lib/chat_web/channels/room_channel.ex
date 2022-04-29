@@ -11,54 +11,34 @@ defmodule ChatWeb.RoomChannel do
   def handle_in("shout-burrito", payload, socket) do
     Chat.Burrito.changeset(%Chat.Burrito{}, payload) |> Chat.Repo.insert  # insert into repo
     Chat.Burrito.get_all_burritos(1)
-    |> Enum.each(fn burrito -> push(socket, "shout-burrito", %{
-        time: burrito.time,
-        date: burrito.date,
-        name: burrito.name,
-        message: burrito.message,
-        # ingredients
-        base: burrito.base,
-        protein: burrito.protein,
-        extra: burrito.extra,
-        rice: burrito.rice,
-        beans: burrito.beans,
-        toppings: burrito.toppings,
-        calories: burrito.calories,
-        protein_grams: burrito.protein_grams,
-        price: burrito.price
-      }) end)
+    |> burrito_display("shout-burrito", socket)
     {:noreply, socket}
   end
 
   @impl true
   def handle_in("past-orders", _payload, socket) do
     Chat.Burrito.get_all_burritos()
-    # |> Enum.reverse() # revers to display the latest message at the bottom of the page
-    |> Enum.each(fn burrito -> push(socket, "shout-past-burritos", %{
-        time: burrito.time,
-        date: burrito.date,
-        name: burrito.name,
-        message: burrito.message,
-        # ingredients
-        base: burrito.base,
-        protein: burrito.protein,
-        extra: burrito.extra,
-        rice: burrito.rice,
-        beans: burrito.beans,
-        toppings: burrito.toppings,
-        calories: burrito.calories,
-        protein_grams: burrito.protein_grams,
-        price: burrito.price
-      }) end)
+    |> burrito_display("shout-past-burritos", socket)
     {:noreply, socket}
   end
 
 
   @impl true
   def handle_in("named-orders", user_name, socket) do
-    Chat.Burrito.get_user_burritos(user_name)
-    # |> Enum.reverse() # revers to display the latest message at the bottom of the page
-    |> Enum.each(fn burrito -> push(socket, "shout-past-burritos", %{
+    user_burritos = Chat.Burrito.get_user_burritos(user_name)
+    user_burritos |> burrito_display("shout-past-burritos", socket)
+
+    # if the there are no burritos from the user
+    if (user_burritos == []) do
+      push(socket, "no-burritos", %{})
+    end
+
+    {:noreply, socket}
+  end
+
+  defp burrito_display(burritos, shout, socket) do
+    burritos
+    |> Enum.each(fn burrito -> push(socket, shout, %{
         time: burrito.time,
         date: burrito.date,
         name: burrito.name,
@@ -74,7 +54,6 @@ defmodule ChatWeb.RoomChannel do
         protein_grams: burrito.protein_grams,
         price: burrito.price
       }) end)
-    {:noreply, socket}
   end
 
 
