@@ -10,11 +10,15 @@ Some Preliminaries:
   * PosgreSQL requires username: "postgres" with password: "postgres" as seen config/dev.exs
   * terminal command for this if its not already setup: `$ createuser --superuser postgres`
 
-To start your Phoenix server:
+To start this Phoenix app:
 
   * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
+  * Create and migrate database with `mix ecto.setup`
   * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+
+  additionally...
+
+  * Insert some initial data with `mix run priv/repo/seeds.exs`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
