@@ -29,6 +29,12 @@ defmodule ChatWeb.Router do
     forward "/graphiql", Absinthe.Plug.GraphiQL, schema: ChatWeb.Schema
   end
 
+  scope "/", ChatWeb do
+   pipe_through :browser
+
+   get "/", PageController, :index
+ end
+
 
   # Other scopes may use custom stacks.
   # scope "/api", ChatWeb do
