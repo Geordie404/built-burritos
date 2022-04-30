@@ -105,9 +105,11 @@ defmodule ChatWeb.Schema.Burrito do
   }
 
   query variables:
-
+  
   {
     "name" : "Geordie"
   }
+
+  !  be sure to capitalize first letter of name in search
   """
 end
