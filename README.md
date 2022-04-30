@@ -47,25 +47,25 @@ GraphQL allows for some additional querying options and query visualization and 
 
   * some additional querying options were added using GraphQL through Absinthe, Elixir's GraphQL toolkit
   * this feature can be utilized at [`localhost:4000/graphiql`](http://localhost:4000/graphiql)
-  * sample query by name :
-  ```
-    query ($name: String!){
-      purchasedBy(name: $name){
-        name
-        message
-        time
-        date
-        base
-        protein
-      }
+  * sample query by name, all of the seeded data is using my name:
+```
+  query ($name: String!){
+    purchasedBy(name: $name){
+      name
+      message
+      time
+      date
+      base
+      protein
     }
-  ```
+  }
+```
 * sample query variables:
-  ```
-    {
-      "name" : "Geordie"
-    }
-  ```
+```
+  {
+    "name" : "Geordie"
+  }
+```
 
 ## Important Files:
   * `config/dev.exs` configure PostgreSQL repo
