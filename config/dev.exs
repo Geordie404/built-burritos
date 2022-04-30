@@ -5,7 +5,7 @@ config :chat, Chat.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost",
-  database: "burrito_dev",
+  database: "geordies_burritos_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
