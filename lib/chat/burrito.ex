@@ -62,14 +62,9 @@ defmodule Chat.Burrito do
     |> Chat.Repo.all()
   end
 
-  def gql_burritos() do
-    query = from burrito in Chat.Burrito,
-            # where: burrito.name == ^name
-            order_by: [desc: :inserted_at]
-    Chat.Repo.all(query)
-  end
 
-  def get_user_burritos(name, limit \\ 10) do
+  def get_user_burritos(name, limit \\ 100) do
+    # query that gets burritos by name only if purchased
     query = from burrito in Chat.Burrito,
             where: burrito.name == ^name and burrito.purchased == :true,
             limit: ^limit,
@@ -79,6 +74,7 @@ defmodule Chat.Burrito do
   end
 
   def purchase_burrito() do
+    # updates a burrito to have purchase set to true
     Ecto.Query.from(burrito in Chat.Burrito, limit: 1, order_by: [desc: burrito.inserted_at])
     |> Chat.Repo.one
     |> Ecto.Changeset.change(%{purchased: true})

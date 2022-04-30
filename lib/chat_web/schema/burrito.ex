@@ -31,48 +31,83 @@ defmodule ChatWeb.Schema.Burrito do
     field :purchased, :boolean
   end
 
-  object :all_burritos do
-    @desc "Get list of all burritos"
-    field :burritos, list_of(:burrito) do
-      resolve(&Resolvers.Burrito.list_burritos/2)
+    # list all burritos
+    object :burritos do
+      field :burritos, list_of(:burrito) do
+        resolve(&Resolvers.Burrito.list_burritos/2)
+      end
+
+      #list all burritos from a specified name
+      field :name, :string
+      field :purchased_by, list_of(:burrito) do
+        arg :name, non_null(:string)
+        resolve(&Resolvers.Burrito.named_burritos/2)
+      end
     end
-  end
-
-  object :burritos_by_name do
-    @desc "Get burritos by name"
-    field :name, :string
-    field :burritos_by_name, list_of(:burrito) do
-      arg :name, non_null(:string)
-      resolve(&Resolvers.Burrito.list_burritos/2)
-    end
-  end
 
 
+  @doc"""
+  all burritos schema fields:
+    burritos {
+        name
+        message
+        time
+        date
+        base
+        protein
+        extra
+        rice
+        beans
+        cheese
+        cilantro
+        onion
+        jalapeno
+        fajita
+        habanero
+        pico
+        toppings
+        calories
+        proteinGrams
+        price
+        purchased
+    }
+
+  Get list of all burritos
+
+  Sample query:
+
+    {
+      burritos {
+        name
+        message
+        date
+        base
+        protein
+        extra
+        toppings
+        calories
+        proteinGrams
+        price
+      }
+    }
+
+  Get burritos by name query:
+
+    query ($name: String!){
+      purchasedBy(name: $name){
+      name
+      message
+      time
+      date
+      base
+      protein
+    }
+  }
+
+  query variables:
+
+  {
+    "name" : "Geordie"
+  }
+  """
 end
-
-
-# {
-#   burritos {
-#     name
-#     message
-#     time
-#     date
-#     base
-#     protein
-#     extra
-#     rice
-#     beans
-#     cheese
-#     cilantro
-#     onion
-#     jalapeno
-#     fajita
-#     habanero
-#     pico
-#     toppings
-#     calories
-#     proteinGrams
-#     price
-#     purchased
-#   }
-# }
