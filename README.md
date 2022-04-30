@@ -6,11 +6,11 @@ Some Preliminaries:
 
   * runs on the newest version of Elixir -v 1.13.4
   * uses PostgreSQL for database
-  * uses GraphiQL for additional queries
-  * PosgreSQL requires username: "postgres" with password: "postgres" as seen config/dev.exs
-  * terminal command for this if its not already setup: `$ createuser --superuser postgres`
+  * uses GraphQL for additional queries
+  * PostgreSQL requires username: "postgres" with password: "postgres" as seen in config/dev.exs
+  * Mac terminal command for this: `$ createuser --superuser postgres`
 
-To start this Phoenix app:
+## Installation
 
   * Install dependencies with `mix deps.get`
   * Create and migrate database with `mix ecto.setup`
@@ -18,20 +18,21 @@ To start this Phoenix app:
 
   additionally...
 
-  * Insert some initial data with `mix run priv/repo/seeds.exs`
+  * Insert some initial data was inserted from `priv/repo/seeds.exs` during `mix ecto.setup`
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Now you can visit [`localhost:4000`](http://localhost:4000) to build some burritos
 
 ## Project Details
 
-Built Burritos is an adaptation of my simple phoenix chat therefore some of the file names and general structure still uses "Chat".
+Built Burritos is an overhaul of my simple phoenix chat therefore some of the file names and general structure still uses "Chat".
 
 The front end is built in HTML and CSS and uses JavaScript for UI manipulation as well as populating the payloads used by the Elixir portion of the project.
+
+I tried my best to make a responsive UI without the use of React, as I have not learned it yet :)
 
 Elixir is responsible for the the schema structure and query handling. Elixir and JavaScript communicate through shouts across the configured channel through the utilization of Phoenix's real time socket connection feature.
 
 GraphQL allows for some additional querying options and query visualization and is built on top of the existing PostgreSQL database
-
 
 ## Using the UI
 
