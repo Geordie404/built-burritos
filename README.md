@@ -20,11 +20,11 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 ## How to Use
 
   * enter your name, select your ingredients, then add some toppings
-  * the 'Build Burrito' button populates the chat box with the details of your burrito
-  * once built, you can change the fillings and 'Update' your order to see live changes
+  * the `Build Burrito` button populates the chat box with the details of your burrito
+  * once built, you can change the fillings and `Update` your order to see live changes
   * alternatively you can purchase the burrito and start a new one
   * after the burrito has been purchased, you can look at your past purchased burritos
-  * the 'Your Past Burritos' button will populate the chat box with burritos you have purchased
+  * the `Your Past Burritos` button will populate the chat box with burritos you have purchased
   * ! the name input acts as a filter for the past burritos and is required to build a burrito
 
 ## Project Details
