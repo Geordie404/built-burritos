@@ -23,7 +23,6 @@ defmodule Chat.Repo.Migrations.CreateBurritos do
       add :purchased, :boolean, default: false
 
       timestamps()
-
     end
   end
 end
