@@ -62,6 +62,13 @@ defmodule Chat.Burrito do
     |> Chat.Repo.all()
   end
 
+  def gql_burritos() do
+    query = from burrito in Chat.Burrito,
+            # where: burrito.name == ^name
+            order_by: [desc: :inserted_at]
+    Chat.Repo.all(query)
+  end
+
   def get_user_burritos(name, limit \\ 10) do
     query = from burrito in Chat.Burrito,
             where: burrito.name == ^name and burrito.purchased == :true,

@@ -31,15 +31,23 @@ defmodule ChatWeb.Schema.Burrito do
     field :purchased, :boolean
   end
 
-  object :get_burritos do
-    @desc """
-    Get a list of products
-    """
-
+  object :all_burritos do
+    @desc "Get list of all burritos"
     field :burritos, list_of(:burrito) do
       resolve(&Resolvers.Burrito.list_burritos/2)
     end
   end
+
+  object :burritos_by_name do
+    @desc "Get burritos by name"
+    field :name, :string
+    field :burritos_by_name, list_of(:burrito) do
+      arg :name, non_null(:string)
+      resolve(&Resolvers.Burrito.list_burritos/2)
+    end
+  end
+
+
 end
 
 
