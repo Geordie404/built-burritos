@@ -17,7 +17,7 @@ defmodule Chat.Repo.Migrations.CreateBurritos do
       add :habanero, :boolean
       add :pico, :boolean
 
-      add :protein_grams
+      add :protein_grams, :string
       add :price, :float
 
       add :purchased, :boolean, default: false

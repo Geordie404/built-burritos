@@ -29,13 +29,12 @@ defmodule ChatWeb.RoomChannel do
     {:noreply, socket}
   end
 
-  @impl true
-  def handle_in("past-orders", _payload, socket) do
-    Chat.Burrito.get_all_burritos()
-    |> burrito_display("shout-past-burritos", socket)
-    {:noreply, socket}
-  end
-
+  # @impl true
+  # def handle_in("past-orders", _payload, socket) do
+  #   Chat.Burrito.get_all_burritos()
+  #   |> burrito_display("shout-past-burritos", socket)
+  #   {:noreply, socket}
+  # end
 
   @impl true
   def handle_in("named-orders", user_name, socket) do
