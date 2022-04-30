@@ -79,6 +79,7 @@ defmodule Chat.Burrito do
 
   end
 
+  # private function for calculating the nutritional macros as well as the price
   defp get_macros_and_price(changeset) do
     caloric_ingredients = ["base", "protein", "extra", "rice", "beans"]
     caloric_toppings = ["cheese", "cilantro", "onion", "jalapeno", "fajita", "salsa", "habanero", "pico"]
@@ -154,6 +155,8 @@ defmodule Chat.Burrito do
     |> Map.new
     |> Map.keys
 
+    # create a list that will be used for calorie calculation
+
     calorie_list = ingredients_filter ++ toppings_filter
 
     total_calories = calorie_map
@@ -174,6 +177,7 @@ defmodule Chat.Burrito do
     |> Map.values
     |> Enum.sum
 
+    # cast changes so that they show up when inserted into the repo
     cast(changeset, %{calories: total_calories, protein_grams: total_protein, price: total_price}, [:calories, :protein_grams, :price])
   end
 

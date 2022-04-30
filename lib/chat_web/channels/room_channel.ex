@@ -29,6 +29,8 @@ defmodule ChatWeb.RoomChannel do
     {:noreply, socket}
   end
 
+
+  # get all burritos, used for debug purposed
   # @impl true
   # def handle_in("past-orders", _payload, socket) do
   #   Chat.Burrito.get_all_burritos()
@@ -50,6 +52,7 @@ defmodule ChatWeb.RoomChannel do
   end
 
   defp burrito_display(burritos, shout, socket) do
+    # pushed each burrito to the user_socket with the provided shout
     burritos
     |> Enum.each(fn burrito -> push(socket, shout, %{
         time: burrito.time,

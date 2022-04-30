@@ -1,5 +1,3 @@
-// NOTE: The contents of this file will only be executed if
-// you uncomment its entry in "assets/js/app.js".
 
 // Bring in Phoenix channels client library:
 import {Socket} from "phoenix"
@@ -8,48 +6,6 @@ import {Socket} from "phoenix"
 // token for authentication. Read below how it should be used.
 let socket = new Socket("/socket", {params: {token: window.userToken}})
 
-// When you connect, you'll often need to authenticate the client.
-// For example, imagine you have an authentication plug, `MyAuth`,
-// which authenticates the session and assigns a `:current_user`.
-// If the current user exists you can assign the user's token in
-// the connection for use in the layout.
-//
-// In your "lib/chat_web/router.ex":
-//
-//     pipeline :browser do
-//       ...
-//       plug MyAuth
-//       plug :put_user_token
-//     end
-//
-//     defp put_user_token(conn, _) do
-//       if current_user = conn.assigns[:current_user] do
-//         token = Phoenix.Token.sign(conn, "user socket", current_user.id)
-//         assign(conn, :user_token, token)
-//       else
-//         conn
-//       end
-//     end
-//
-// Now you need to pass this token to JavaScript. You can do so
-// inside a script tag in "lib/chat_web/templates/layout/app.html.heex":
-//
-//     <script>window.userToken = "<%= assigns[:user_token] %>";</script>
-//
-// You will need to verify the user token in the "connect/3" function
-// in "lib/chat_web/channels/user_socket.ex":
-//
-//     def connect(%{"token" => token}, socket, _connect_info) do
-//       # max_age: 1209600 is equivalent to two weeks in seconds
-//       case Phoenix.Token.verify(socket, "user socket", token, max_age: 1_209_600) do
-//         {:ok, user_id} ->
-//           {:ok, assign(socket, :user, user_id)}
-//
-//         {:error, reason} ->
-//           :error
-//       end
-//     end
-//
 // Finally, connect to the socket:
 socket.connect()
 
@@ -92,6 +48,8 @@ build_burrito.addEventListener('click', function (event) {
   let topping_salsa = document.getElementById('salsa-checkbox')
   let topping_habanero = document.getElementById('habanero-checkbox')
   let topping_pico = document.getElementById('pico-checkbox')
+
+  // creates a string with all selected toppings
 
   var toppings_list = "none"
   if (topping_cheese.checked) {toppings_list = toppings_list.concat(", ", topping_cheese.value)}
@@ -136,6 +94,7 @@ build_burrito.addEventListener('click', function (event) {
     // let ul = document.getElementById('msg-list');
 });
 
+// purchase button functionality
 let purchase_burrito = document.getElementById('purchase-button'); //show past burritos
 purchase_burrito.addEventListener('click', function (event) {
   let ul = document.getElementById('msg-list');
@@ -160,8 +119,7 @@ purchase_burrito.addEventListener('click', function (event) {
    build_burrito.value = "New Burrito"
   });
 
-// shout for burrito
-
+// shout for current burrito build
 channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
   let ul = document.getElementById('msg-list');
   ul.innerHTML = "";
@@ -195,6 +153,7 @@ channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
   ul.appendChild(burrito_price);
 });
 
+// shout to show past burritos
 channel.on('shout-past-burritos', function (payload) { // listen to the 'shout' event
   let ul = document.getElementById('msg-list');
   let order_details = document.createElement("li"); // create new list item DOM element
@@ -215,43 +174,41 @@ channel.on('shout-past-burritos', function (payload) { // listen to the 'shout' 
   msg.value = "";
 });
 
-channel.on('no-burritos', function() { // listen to the 'shout' event
+
+// some channel events for updating the UI
+
+channel.on('no-burritos', function() {
   let ul = document.getElementById('msg-list');
-  let order_details = document.createElement("li"); // create new list item DOM element
+  let order_details = document.createElement("li");
   order_details.innerHTML = "no past orders from this user"
   ul.appendChild(order_details);
   let purchase_burrito = document.getElementById('purchase-button')
   purchase_burrito.style.display = "none";
 });
 
-channel.on('no-name', function() { // listen to the 'shout' event
+channel.on('no-name', function() { /
   let ul = document.getElementById('msg-list');
   ul.innerHTML = "";
-  let order_details = document.createElement("li"); // create new list item DOM element
-  order_details.innerHTML = "enter your name"
+  let order_details = document.createElement("li");
   ul.appendChild(order_details);
   let purchase_burrito = document.getElementById('purchase-button')
   purchase_burrito.style.display = "none";
 });
 
-channel.on('purchasable', function() { // listen to the 'shout' event
+channel.on('purchasable', function() {
   let purchase_burrito = document.getElementById('purchase-button')
   purchase_burrito.style.display = "block";
 });
 
-channel.on('purchase', function(payload) { // listen to the 'shout' event
+channel.on('purchase', function(payload) {
   let ul = document.getElementById('msg-list');
-  let order_details = document.createElement("li"); // create new list item DOM element
+  let order_details = document.createElement("li");
   let purchase_burrito = document.getElementById('purchase-button')
   purchase_burrito.style.display = "none";
   order_details.innerHTML = "Thank you for your $" + payload.price + " purchase " + payload.name + "!";
   ul.appendChild(order_details);
   build_burrito.value = "New Burrito"
   msg.value = "";
-
 });
-
-
-
 
 export default socket
