@@ -4,9 +4,8 @@ defmodule Chat.Burrito do
   import Ecto.Query # add Ecto.Query
 
   schema "burritos" do
-    field :burrito, :boolean, default: false
-    field :message, :string
     field :name, :string
+    field :message, :string
     field :time, :string
     field :date, :string
     # ingredient fields
@@ -36,14 +35,14 @@ defmodule Chat.Burrito do
   @doc false
   def changeset(burrito, attrs) do
     burrito
-    |> cast(attrs, [:burrito, :name, :message, :time, :date,
+    |> cast(attrs, [:name, :message, :time, :date,
       :base, :protein, :extra, :rice, :beans,
       :cheese, :cilantro, :onion, :jalapeno, :fajita, :salsa, :habanero, :pico,
       :toppings, :calories, :protein_grams, :price, :purchased])
 
     |> capitalize(attrs, :name)
 
-    |> validate_required([:burrito, :name, :message, :time, :date,
+    |> validate_required([:name, :message, :time, :date,
       :base, :protein, :extra, :rice, :beans,
       :cheese, :cilantro, :onion, :jalapeno, :fajita, :salsa, :habanero, :pico,
       :toppings, :calories, :protein_grams, :price, :purchased])
