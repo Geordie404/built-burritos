@@ -14,9 +14,8 @@ defmodule ChatWeb.Router do
     plug :accepts, ["json"]
   end
 
-  # GraphQL  first tutorial-------
+  # GraphQL additions -------
   pipeline :graphql do
-   # Will be used later
   end
 
   scope "/api" do
@@ -28,6 +27,8 @@ defmodule ChatWeb.Router do
   if Mix.env == :dev do
     forward "/graphiql", Absinthe.Plug.GraphiQL, schema: ChatWeb.Schema
   end
+
+  # ------------
 
   scope "/", ChatWeb do
    pipe_through :browser

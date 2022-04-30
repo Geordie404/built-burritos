@@ -93,8 +93,8 @@ defmodule ChatWeb.Schema.Burrito do
 
   Get burritos by name query:
 
-    query ($name: String!){
-      purchasedBy(name: $name){
+  query ($name: String!){
+    purchasedBy(name: $name){
       name
       message
       time
@@ -105,7 +105,7 @@ defmodule ChatWeb.Schema.Burrito do
   }
 
   query variables:
-  
+
   {
     "name" : "Geordie"
   }
