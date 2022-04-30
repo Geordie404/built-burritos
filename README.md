@@ -37,8 +37,8 @@ Elixir is responsible for the the schema structure and query handling. Elixir an
 
 ## Important Files:
 
-  * [`config/dev.exs`] configure PostgreSQL repo
-  * [`assets/js/user_socket.js`] updates UI by interacting with the HTML
-  * [`lib/chat/burrito.ex`] Ecto Schema, changesets, and queries for burritos schema
-  * [`lib/chat_web/channels/room_channel.ex`] middleware between JS and Ecto Repo
-  * [`lib/chat_web/channels/templates/page/index.html.heex`] HTML
+  * `config/dev.exs` configure PostgreSQL repo
+  * `assets/js/user_socket.js` updates UI by interacting with the HTML
+  * `lib/chat/burrito.ex` Ecto Schema, changesets, and queries for burritos schema
+  * `lib/chat_web/channels/room_channel.ex` middleware between JS and Ecto Repo
+  * `lib/chat_web/channels/templates/page/index.html.heex` HTML
