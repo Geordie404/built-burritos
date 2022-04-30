@@ -186,7 +186,7 @@ channel.on('no-burritos', function() {
   purchase_burrito.style.display = "none";
 });
 
-channel.on('no-name', function() { /
+channel.on('no-name', function() {
   let ul = document.getElementById('msg-list');
   ul.innerHTML = "";
   let order_details = document.createElement("li");
