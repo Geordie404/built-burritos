@@ -15,14 +15,19 @@ defmodule ChatWeb.RoomChannel do
       {:ok, _} ->
         Chat.Burrito.get_all_burritos(1)
         |> burrito_display("shout-burrito", socket)
+        push(socket, "purchasable", %{})
       {:error,_} ->
         push(socket, "no-name", %{})
-
     end
-
     {:noreply, socket}
   end
 
+  @impl true
+  def handle_in("purchase-burrito", _payload, socket) do
+    {_ok, burrito} = Chat.Burrito.purchase_burrito()
+    burrito_display([burrito],"purchase", socket)
+    {:noreply, socket}
+  end
 
   @impl true
   def handle_in("past-orders", _payload, socket) do
@@ -62,7 +67,8 @@ defmodule ChatWeb.RoomChannel do
         toppings: burrito.toppings,
         calories: burrito.calories,
         protein_grams: burrito.protein_grams,
-        price: burrito.price
+        price: burrito.price,
+        purchased: burrito.purchased
       }) end)
   end
 

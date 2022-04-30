@@ -62,20 +62,18 @@ channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
-// Finalize burrito button
+// creates a string out of the checked boxes
 
-let build = document.getElementById('finalize-button'); //finalize burrito button
-build.addEventListener('click', function (event) {
-
+let build_burrito = document.getElementById('build-button'); //finalize burrito button
+build_burrito.addEventListener('click', function (event) {
+  build_burrito.value = "Update Order";
   let name = document.getElementById('name');          // name of message sender
   let msg = document.getElementById('msg');
   let today = new Date();
   let time = today.toLocaleTimeString();
   let date = today.toLocaleDateString();
 
-
   // data from selects
-
   let burrito_base = document.getElementById('base-options')
   let burrito_protein = document.getElementById('protein-options')
   let burrito_protein_extra = document.getElementById('protein-seconds')
@@ -95,8 +93,6 @@ build.addEventListener('click', function (event) {
   let topping_habanero = document.getElementById('habanero-checkbox')
   let topping_pico = document.getElementById('pico-checkbox')
 
-
-  // creates a string out of the checked boxes
   var toppings_list = "none"
   if (topping_cheese.checked) {toppings_list = toppings_list.concat(", ", topping_cheese.value)}
   if (topping_cilantro.checked) {toppings_list = toppings_list.concat(", ", topping_cilantro.value)}
@@ -110,43 +106,49 @@ build.addEventListener('click', function (event) {
   if (toppings_list == "none") { toppings_list = "no toppings"}
 
 
-    channel.push('build-burrito', { // send the message to the server on "shout" channel
-      burrito: true,
-      time: time,
-      date: date,
-      name: name.value,     // get value of "name" of person sending the message. Set guest as default
-      message:msg.value || "no extra instructions",  // get message text (value) from msg input field.
-      // ingredient fields
-      base: burrito_base.value,
-      protein: burrito_protein.value,
-      extra: burrito_protein_extra.value,
-      rice: burrito_rice.value,
-      beans: burrito_beans.value,
-      // toppings fields
-      cheese: topping_cheese.checked,
-      cilantro: topping_cilantro.checked,
-      onion: topping_onion.checked,
-      jalapeno: topping_jalapeno.checked,
-      fajita: topping_fajita.checked,
-      salsa: topping_salsa.checked,
-      habanero: topping_habanero.checked,
-      pico: topping_pico.checked,
-      // list of all toppings
-      toppings: toppings_list,
-      calories: 0,
-      purchased: false
+    channel.push('build-burrito',
+    { //send the message to the server on "shout" channel
+       burrito: true,
+       time: time,
+       date: date,
+       name: name.value,     // get value of "name" of person sending the message. Set guest as default
+       message:msg.value || "no extra instructions",  // get message text (value) from msg input field.
+       // ingredient fields
+       base: burrito_base.value,
+       protein: burrito_protein.value,
+       extra: burrito_protein_extra.value,
+       rice: burrito_rice.value,
+       beans: burrito_beans.value,
+       // toppings fields
+       cheese: topping_cheese.checked,
+       cilantro: topping_cilantro.checked,
+       onion: topping_onion.checked,
+       jalapeno: topping_jalapeno.checked,
+       fajita: topping_fajita.checked,
+       salsa: topping_salsa.checked,
+       habanero: topping_habanero.checked,
+       pico: topping_pico.checked,
+       // list of all toppings
+       toppings: toppings_list,
+       calories: 0,
+       purchased: false
     });
-
     // let ul = document.getElementById('msg-list');
 });
 
-//shows all past orders
-let past_orders = document.getElementById('past-button'); //show past burritos
-past_orders.addEventListener('click', function (event) {
+let purchase_burrito = document.getElementById('purchase-button'); //show past burritos
+purchase_burrito.addEventListener('click', function (event) {
   let ul = document.getElementById('msg-list');
-  ul.innerHTML = "";
-  channel.push('past-orders');
+  channel.push('purchase-burrito', name);
  });
+
+//shows all past orders Debug feature
+// let past_orders = document.getElementById('past-button'); //show past burritos
+// past_orders.addEventListener('click', function (event) {
+//   let ul = document.getElementById('msg-list');
+//   ul.innerHTML = "all past orders";
+//   channel.push('past-orders');
+//  });
 
  //shows users past orders
  let users_orders = document.getElementById('name-filter-button'); //show past burritos
@@ -160,7 +162,9 @@ past_orders.addEventListener('click', function (event) {
    else {
      ul.innerHTML = "no name entered";
    }
-
+   let purchase_burrito = document.getElementById('purchase-button')
+   purchase_burrito.style.display = "none";
+   build_burrito.value = "New Burrito"
   });
 
 // shout for burrito
@@ -179,7 +183,7 @@ channel.on('shout-burrito', function (payload) { // listen to the 'shout' event
   if (extra == "false") {extra = "no extra"} else {extra = extra.slice(2)};
 
   order_details.innerHTML = '<b>' + payload.name + "'s " + payload.protein + " burrito" + '</b>'
-  + " ordered on " + payload.date + " at " + payload.time
+  + " created on " + payload.date + " at " + payload.time
 
   burrito_ingredients.innerHTML =
   "burrito " + "base: " + payload.base + ", protein: " + payload.protein + ", extra-protein: " + extra
@@ -214,6 +218,8 @@ channel.on('shout-past-burritos', function (payload) { // listen to the 'shout' 
 
   ul.appendChild(order_details);
   ul.appendChild(burrito_details);
+
+  msg.value = "";
 });
 
 channel.on('no-burritos', function() { // listen to the 'shout' event
@@ -221,15 +227,38 @@ channel.on('no-burritos', function() { // listen to the 'shout' event
   let order_details = document.createElement("li"); // create new list item DOM element
   order_details.innerHTML = "no past orders from this user"
   ul.appendChild(order_details);
+  let purchase_burrito = document.getElementById('purchase-button')
+  purchase_burrito.style.display = "none";
 });
 
 channel.on('no-name', function() { // listen to the 'shout' event
   let ul = document.getElementById('msg-list');
   ul.innerHTML = "";
   let order_details = document.createElement("li"); // create new list item DOM element
-  order_details.innerHTML = "enter your name before you build a burrito"
+  order_details.innerHTML = "enter your name"
   ul.appendChild(order_details);
+  let purchase_burrito = document.getElementById('purchase-button')
+  purchase_burrito.style.display = "none";
 });
+
+channel.on('purchasable', function() { // listen to the 'shout' event
+  let purchase_burrito = document.getElementById('purchase-button')
+  purchase_burrito.style.display = "block";
+});
+
+channel.on('purchase', function(payload) { // listen to the 'shout' event
+  let ul = document.getElementById('msg-list');
+  let order_details = document.createElement("li"); // create new list item DOM element
+  let purchase_burrito = document.getElementById('purchase-button')
+  purchase_burrito.style.display = "none";
+  order_details.innerHTML = "Thank you for your $" + payload.price + " purchase " + payload.name + "!";
+  ul.appendChild(order_details);
+  build_burrito.value = "New Burrito"
+  msg.value = "";
+
+
+});
+
 
 
 

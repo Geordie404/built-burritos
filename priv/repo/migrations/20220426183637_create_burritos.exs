@@ -20,7 +20,7 @@ defmodule Chat.Repo.Migrations.CreateBurritos do
       add :protein_grams
       add :price, :float
 
-      add :purchased, :boolean
+      add :purchased, :boolean, default: false
 
       timestamps()
 

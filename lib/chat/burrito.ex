@@ -65,11 +65,18 @@ defmodule Chat.Burrito do
 
   def get_user_burritos(name, limit \\ 10) do
     query = from burrito in Chat.Burrito,
-            where: burrito.name == ^name,
+            where: burrito.name == ^name and burrito.purchased == :true,
             limit: ^limit,
             order_by: [desc: :inserted_at]
 
     Chat.Repo.all(query)
+  end
+
+  def purchase_burrito() do
+    Ecto.Query.from(burrito in Chat.Burrito, limit: 1, order_by: [desc: burrito.inserted_at])
+    |> Chat.Repo.one
+    |> Ecto.Changeset.change(%{purchased: true})
+    |> Chat.Repo.update()
 
   end
 

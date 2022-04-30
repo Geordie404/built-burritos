@@ -125,8 +125,8 @@ ul{
   background-color: #c5c6d0;
   border:1px solid #000;
   list-style:none;
-  min-height: 350px;
-  max-height:350px;
+  min-height: 250px;
+  max-height: 250px;
   margin:0;
   overflow:auto;
   padding:0;
