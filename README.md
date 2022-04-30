@@ -7,7 +7,7 @@ Some Preliminaries:
   * runs on the newest version of Elixir -v 1.13.4
   * uses PostgreSQL for database
   * PosgreSQL requires username: "postgres" with password: "postgres" as seen config/dev.exs
-  * $ createuser --superuser postgres
+  * terminal command for this if its not already setup: `$ createuser --superuser postgres`
 
 To start your Phoenix server:
 
