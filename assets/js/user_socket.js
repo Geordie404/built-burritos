@@ -142,13 +142,6 @@ purchase_burrito.addEventListener('click', function (event) {
   channel.push('purchase-burrito', name);
  });
 
-//shows all past orders Debug feature
-// let past_orders = document.getElementById('past-button'); //show past burritos
-// past_orders.addEventListener('click', function (event) {
-//   let ul = document.getElementById('msg-list');
-//   ul.innerHTML = "all past orders";
-//   channel.push('past-orders');
-//  });
 
  //shows users past orders
  let users_orders = document.getElementById('name-filter-button'); //show past burritos
@@ -255,7 +248,6 @@ channel.on('purchase', function(payload) { // listen to the 'shout' event
   ul.appendChild(order_details);
   build_burrito.value = "New Burrito"
   msg.value = "";
-
 
 });
 
